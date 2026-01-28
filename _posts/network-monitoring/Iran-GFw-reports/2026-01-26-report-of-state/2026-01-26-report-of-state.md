@@ -143,7 +143,7 @@ Both UDP and ICMP saw **near-complete blocking**—more aggressive than TCP filt
 - Home networks: **100% blocked**
 - Mobile networks: **heavily jammed**
 
-![ICMP block]({{ '/assets/posts/network-monitoring/Iran-GFw-reports/2026-01-26-report-of-state/images/icmp-block.png' | relative_url }}) 
+![ICMP block]({{ '/assets/posts/network-monitoring/Iran-GFw-reports/2026-01-26-report-of-state/images/icmp-block.png' | relative_url }})
 
 ### 3. DNS Protocol
 
