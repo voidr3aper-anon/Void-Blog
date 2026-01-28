@@ -7,7 +7,7 @@ author: "The Void"
 author_link: "https://github.com/voidr3aper-anon"
 categories: [Network Monitoring]
 tags: [network-monitoring, report, iran]
-image: "assets/posts/network-monitoring/Iran-GFw-reports/2026-01-26-report-of-state/images/trailer.png"
+image: "/assets/posts/network-monitoring/Iran-GFw-reports/2026-01-26-report-of-state/images/trailer.png"
 excerpt: "The internet state in the middle of Iran's protests"
 ---
 

@@ -26,9 +26,7 @@ header_pages:
   - resources.md
   - archive.md
 
-# Include image directories from posts
-include:
-  - _posts/**/images
+# Images are in assets directory, which is automatically included by Jekyll
 
 # Exclude from processing
 exclude:
