@@ -1,0 +1,66 @@
+{% if page.layout == "post" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "{{ page.title | escape }}",
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.modified | default: page.date | date_to_xmlschema }}",
+  "author": {
+    "@type": "Person",
+    "name": "{{ page.author | default: site.author | default: "Void" }}"{% if page.author_link %},
+    "url": "{{ page.author_link }}"{% endif %}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ "/assets/icons/icon.svg" | absolute_url }}"
+    }
+  },
+  "description": "{{ page.excerpt | default: page.content | strip_html | truncatewords: 50 | escape }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ page.url | absolute_url }}"
+  }{% if page.image %},
+  "image": "{{ page.image | absolute_url }}"{% endif %}{% if page.categories %},
+  "keywords": "{{ page.categories | join: ', ' }}"{% endif %}
+}
+</script>
+{% elsif page.layout == "page" %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "{{ page.title | escape }}",
+  "description": "{{ page.excerpt | default: page.content | strip_html | truncatewords: 50 | escape }}",
+  "url": "{{ page.url | absolute_url }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title }}"
+  }
+}
+</script>
+{% else %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "{{ site.title }}",
+  "description": "{{ site.description }}",
+  "url": "{{ site.url }}{{ site.baseurl }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "{{ site.title }}",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ "/assets/icons/icon.svg" | absolute_url }}"
+    }
+  }{% if site.github_username %},
+  "sameAs": [
+    "https://github.com/{{ site.github_username }}"
+  ]{% endif %}
+}
+</script>
+{% endif %}

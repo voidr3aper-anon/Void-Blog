@@ -1,0 +1,119 @@
+---
+layout: default
+---
+
+<article class="post">
+  <!-- Compact header section -->
+  <div class="post-header-section">
+    <header class="post-header">
+      <h1 class="post-title">{{ page.title }}</h1>
+      
+      <!-- Compact Report Metadata - Below Title -->
+      <div class="report-metadata" data-version="{{ page.version | default: '1.0' }}" data-published="{{ page.date | date: '%Y-%m-%d' }}" data-modified="{{ page.modified | default: page.date | date: '%Y-%m-%d' }}">
+        <div class="metadata-item">
+          <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+        </div>
+        <div class="metadata-item">
+          <span class="reading-time"><span id="reading-time-value">5</span> min read</span>
+        </div>
+        {% if page.author %}
+        <div class="metadata-item">
+          {% if page.author_link %}
+          <span>by <a href="{{ page.author_link }}" target="_blank" rel="noopener" class="author-link">{{ page.author }}</a></span>
+          {% else %}
+          <span>by {{ page.author }}</span>
+          {% endif %}
+        </div>
+        {% endif %}
+        {% if page.version %}
+        <div class="metadata-item">
+          <span>v{{ page.version }}</span>
+        </div>
+        {% endif %}
+        {% if page.categories.size > 0 %}
+          <div class="metadata-item">
+            <span class="category-tags">
+              {% for category in page.categories %}
+                <a href="{{ "/archive/" | relative_url }}?category={{ category | url_encode }}" class="category-tag">{{ category }}</a>
+              {% endfor %}
+            </span>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Compact Report Actions -->
+      <div class="report-actions">
+        <button id="bookmark-post" class="report-action-btn">Bookmark</button>
+        <button id="generate-citation" class="report-action-btn secondary">Cite</button>
+        <button id="print-report" class="report-action-btn">Print</button>
+        <button id="export-pdf" class="report-action-btn">Export PDF</button>
+      </div>
+    </header>
+  </div>
+
+  <!-- Two-column layout: Sidebar TOC + Main Content -->
+  <div class="post-layout">
+    <!-- Fixed Sidebar TOC -->
+    <aside class="sidebar-toc">
+      <div class="toc-wrapper">
+        <div id="table-of-contents">
+          <h2>Table of Contents</h2>
+        </div>
+        
+        <!-- Report Statistics in Sidebar -->
+        <div class="report-statistics">
+          <h3 class="report-stats-title">Statistics</h3>
+          <!-- Stats will be populated by JavaScript -->
+        </div>
+        
+        <div id="table-of-figures">
+          <h2>Table of Figures</h2>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <div class="post-content-wrapper">
+      <div class="post-content">
+        {{ content }}
+      </div>
+      
+      <!-- Social Sharing -->
+      <div class="social-sharing">
+        <h3>Share this report</h3>
+        <div class="share-buttons">
+          <button class="share-btn" data-platform="twitter">Twitter</button>
+          <button class="share-btn" data-platform="reddit">Reddit</button>
+          <button class="share-btn" data-platform="facebook">Facebook</button>
+          <button class="share-btn" data-platform="linkedin">LinkedIn</button>
+        </div>
+      </div>
+
+      <!-- Related Documents (Phase 3 - Dynamically populated by JavaScript) -->
+      <div id="related-documents" class="related-documents"></div>
+
+      <!-- Related Posts (Fallback) -->
+      {% if site.related_posts.size > 0 %}
+      <div class="related-posts">
+        <h2>Related Reports</h2>
+        <div class="related-posts-grid">
+          {% for post in site.related_posts limit:3 %}
+          <div class="related-post-card">
+            <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+            <p class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</p>
+            {% if post.excerpt %}
+              <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+            {% endif %}
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <footer class="post-footer">
+    <hr>
+    <p><a href="{{ "/" | relative_url }}">← Back to Home</a></p>
+  </footer>
+</article>

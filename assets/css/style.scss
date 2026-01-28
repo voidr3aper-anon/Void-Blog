@@ -1,0 +1,4451 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* Reset theme defaults that might cause borders/margins */
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  max-width: 100vw !important;
+}
+
+/* SCSS Variables - Professional Documentation Theme */
+/* Inspired by technical documentation sites like Debian, Read the Docs, etc. */
+
+/* Grayscale Base */
+$black: #000000;
+$gray-900: #111827;
+$gray-800: #1f2937;
+$gray-700: #374151;
+$gray-600: #4b5563;
+$gray-500: #6b7280;
+$gray-400: #9ca3af;
+$gray-300: #d1d5db;
+$gray-200: #e5e7eb;
+$gray-100: #f3f4f6;
+$white: #ffffff;
+
+/* Accent Colors - Subtle and Professional */
+$accent-primary: #3b82f6;      /* Subtle blue for links/highlights */
+$accent-secondary: #6b7280;    /* Gray for secondary elements */
+$success: #059669;             /* Green for success states */
+$warning: #d97706;             /* Orange for warnings */
+$danger: #dc2626;              /* Red for errors/danger */
+$info: #0891b2;                /* Cyan for info */
+
+/* Theme Variables */
+$primary-color: $accent-primary;
+$secondary-color: $gray-600;
+$dark-bg: $gray-900;
+$darker-bg: $gray-800;
+$accent-bg: $gray-700;
+$text-light: $gray-100;
+$text-muted: $gray-400;
+$code-bg: $gray-800;
+$border-color: $gray-700;
+$mobile-breakpoint: 768px;
+
+/* TOC Sidebar Dimensions */
+$toc-sidebar-width: 300px;
+$toc-sidebar-width-tablet: 240px;
+$toc-sidebar-border: 2px;
+
+/* Kali Color Palette - Professional documentation theme */
+$kali-red: #dc2626;          /* Primary red - less harsh on eyes */
+$kali-dark: #0B0F14;         /* Background - deep blue-black */
+$kali-darker: #050505;       /* Darkest shade */
+$kali-gray: #111827;         /* Surface/cards - slate gray */
+$kali-border: #223042;       /* Border - blue-gray */
+$kali-text: #E6EDF3;         /* Primary text - soft white */
+$kali-accent: #ef4444;       /* Accent red for highlights */
+$kali-black: #000000;
+$kali-bg-primary: $kali-dark;
+$kali-bg-secondary: $kali-gray;
+$kali-text-muted: #7B8794;  /* Muted text - gray-blue */
+$kali-text-secondary: #A7B1BC; /* Secondary text - lighter gray */
+
+/* Semantic colors for documentation */
+$kali-success: #34D399;      /* Success - green */
+$kali-warning: #FBBF24;      /* Warning - amber */
+$kali-danger: #F87171;       /* Danger - coral red */
+$kali-link: #38BDF8;         /* Links - sky blue */
+
+/* Professional Documentation Theme */
+
+/* Global box-sizing to prevent width overflow */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: clip; /* Use clip instead of hidden to preserve sticky positioning */
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: $gray-900;
+  color: $text-light;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  line-height: 1.8;
+  font-size: 16px;
+  position: relative;
+  overflow-x: clip; /* Use clip instead of hidden to preserve sticky positioning */
+  width: 100%;
+  max-width: 100vw;
+  margin: 0;
+  padding: 0;
+}
+
+/* Top Navigation Bar */
+.top-nav-bar {
+  z-index: 1000;
+  background: rgba(31, 41, 55, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.main-content {
+  /* Remove position and z-index to prevent stacking context on both mobile and desktop */
+  /* This allows TOC sidebar to properly layer above overlay on mobile */
+  /* and ensures TOC stays visible and sticky on desktop */
+  background: $gray-900;
+}
+
+/* Hero Section - Completely Static (No Animation) */
+.hero-section {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 4rem 2rem;
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+  border-bottom: 1px solid rgba(55, 65, 81, 0.5);
+  margin: 0 0 2rem 0;
+}
+
+/* Hero content */
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: $white;
+  margin: 0 0 1rem 0;
+  line-height: 1.2;
+  text-shadow: 0 2px 20px rgba(0, 0, 0, 0.7);
+}
+
+.hero-subtitle {
+  font-size: 1.15rem;
+  color: $gray-300;
+  margin: 0 0 2.5rem 0;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+  text-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  padding: 1.25rem 2rem;
+  background: rgba(31, 41, 55, 0.7);
+  border: 1px solid rgba(59, 130, 246, 0.3);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  min-width: 140px;
+
+  &:hover {
+    transform: translateY(-5px);
+    background: rgba(31, 41, 55, 0.9);
+    border-color: $accent-primary;
+    box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+  }
+}
+
+.hero-stat-number {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: $accent-primary;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+
+.hero-stat-label {
+  font-size: 0.9rem;
+  color: $gray-300;
+  font-weight: 500;
+}
+
+/* Compact Search Bar */
+.compact-search {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto 2rem;
+  padding: 0 1rem;
+
+  #search-input {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: rgba(31, 41, 55, 0.8);
+    border: 1px solid rgba(55, 65, 81, 0.5);
+    border-radius: 8px;
+    color: $text-light;
+    font-size: 0.95rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s ease;
+
+    &:focus {
+      outline: none;
+      border-color: $accent-primary;
+      background: rgba(31, 41, 55, 0.95);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+    &::placeholder {
+      color: $gray-500;
+    }
+  }
+
+  #search-results {
+    position: absolute;
+    top: 100%;
+    left: 1rem;
+    right: 1rem;
+    margin-top: 0.5rem;
+    background: rgba(31, 41, 55, 0.98);
+    border: 1px solid rgba(55, 65, 81, 0.5);
+    border-radius: 8px;
+    max-height: 400px;
+    overflow-y: auto;
+    backdrop-filter: blur(15px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  }
+}
+
+/* Post items with lighter glass effect */
+.post-item-simple {
+  background: rgba(31, 41, 55, 0.5);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(55, 65, 81, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: $mobile-breakpoint) {
+  .hero-section {
+    padding: 2rem 1rem;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  .hero-content {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .hero-title {
+    font-size: 2rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .hero-stats {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-stat-item {
+    min-width: 100px;
+    max-width: calc(50% - 0.5rem);
+    padding: 0.75rem 1rem;
+  }
+
+  .hero-stat-number {
+    font-size: 1.5rem;
+  }
+}
+
+/* Compact Top Navigation Bar - Space Efficient */
+.top-nav-bar {
+  background: $gray-800;
+  border-bottom: 1px solid $border-color;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 0.4rem 1.5rem; /* Even tighter padding */
+}
+
+.nav-bar-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 100%;
+  gap: 2rem;
+}
+
+.nav-brand {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  min-width: 0;
+}
+
+.site-title {
+  color: $white;
+  font-size: 1.2rem; /* Slightly smaller */
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.site-tagline {
+  color: $gray-400;
+  font-size: 0.75rem; /* Smaller for more compact design */
+  font-weight: 400;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: nowrap; /* Keep single line */
+}
+
+.nav-btn {
+  color: $gray-300;
+  text-decoration: none;
+  padding: 0.4rem 0.9rem;
+  border-radius: 4px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  background: $gray-700;
+  border: 1px solid $border-color;
+  white-space: nowrap;
+
+  &:hover {
+    color: $white;
+    background: $gray-600;
+    border-color: $primary-color;
+    transform: translateY(-1px);
+  }
+}
+
+/* Mobile responsive navigation - Updated for hamburger menu */
+@media (max-width: 768px) {
+  .top-nav-bar {
+    padding: 0.5rem 1rem;
+  }
+  
+  .nav-bar-content {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  
+  .nav-brand {
+    flex-direction: row;
+    gap: 0.5rem;
+    align-items: center;
+    flex: 1;
+    min-width: 0;
+  }
+  
+  .site-title {
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .site-tagline {
+    display: none; /* Hide tagline on mobile to save space */
+  }
+  
+  /* Desktop nav buttons - hidden on mobile, replaced by hamburger menu */
+  .nav-buttons {
+    display: none;
+  }
+}
+
+/* Main content area */
+.main-content {
+  background: $gray-800; /* Keep original background color */
+  border-radius: 0;
+  padding: 0; /* Remove padding to allow hero section to be edge-to-edge */
+  margin: 0; /* Remove all margins */
+  box-shadow: none;
+  border: none;
+  border-top: none; /* Remove border for full-screen hero */
+  max-width: 100% !important; /* Override theme default to use full width */
+  width: 100% !important; /* Ensure full width */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  
+  /* Mobile-specific: Ensure absolutely no constraints */
+  @media (max-width: $mobile-breakpoint) {
+    max-width: 100vw !important;
+    width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}
+
+/* Full-width layout for posts with sidebar */
+.post .main-content {
+  padding: 0;
+  max-width: 100% !important;
+}
+
+/* Headings */
+.main-content h1,
+.main-content h2,
+.main-content h3,
+.main-content h4,
+.main-content h5,
+.main-content h6 {
+  color: $kali-text;
+  font-weight: 600;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.main-content h1 {
+  font-size: 2.5rem;
+  padding-bottom: 0.75rem;
+  color: $kali-text;
+}
+
+.main-content h2 {
+  font-size: 2rem;
+  color: $kali-text;
+  border-left: 4px solid $kali-red;
+  padding-left: 1rem;
+}
+
+.main-content h3 {
+  font-size: 1.5rem;
+  color: $kali-text-muted;
+}
+
+/* Links - Kali themed with blue for better readability */
+.main-content a {
+  color: $kali-link;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  transition: all 0.2s ease;
+}
+
+.main-content a:hover {
+  color: lighten($kali-link, 10%);
+  text-decoration-thickness: 2px;
+}
+
+/* Post list styling - Professional and clean */
+.post-item-simple {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: $gray-800;
+  border-radius: 6px;
+  border-left: 3px solid $primary-color;
+  transition: all 0.3s ease;
+  border: 1px solid $border-color;
+}
+
+.post-item-simple:hover {
+  transform: translateX(5px);
+  border-left-color: lighten($primary-color, 10%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.post-item-simple h3 {
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+}
+
+.post-date {
+  color: $gray-400;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.post-excerpt {
+  color: $gray-300;
+  line-height: 1.6;
+  margin-top: 0.75rem;
+}
+
+/* Keep legacy post-item for other pages */
+.post-item {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: $gray-800;
+  border-radius: 6px;
+  border-left: 3px solid $primary-color;
+  transition: all 0.3s ease;
+  border: 1px solid $border-color;
+}
+
+.post-item:hover {
+  transform: translateX(5px);
+  border-left-color: lighten($primary-color, 10%);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.post-item h3 {
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.75rem;
+}
+
+.post-link {
+  color: $primary-color !important;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.post-link:hover {
+  color: lighten($primary-color, 10%) !important;
+  text-decoration: underline;
+}
+
+.post-meta {
+  color: $gray-400;
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.post-item p {
+  color: #c0c0c0;
+  line-height: 1.8;
+}
+
+/* Paragraphs */
+.main-content p {
+  color: $kali-text;
+  margin-bottom: 1.5rem;
+}
+
+/* Lists */
+.main-content ul,
+.main-content ol {
+  color: $kali-text;
+}
+
+.main-content li {
+  margin-bottom: 0.75rem;
+}
+
+/* Strong emphasis - Kali themed */
+.main-content strong {
+  color: $kali-red;
+  font-weight: 600;
+}
+
+/* Code blocks - Kali themed for readability */
+/* Fix for wrapper divs to prevent white corners and background showing */
+.main-content .highlighter-rouge,
+.main-content .highlight,
+.main-content figure.highlight {
+  background: transparent; /* Remove any background */
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1rem 0;
+  padding: 0; /* Remove any padding that could show white space */
+}
+
+.main-content pre {
+  background: $kali-darker;
+  border: 1px solid $kali-border;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 0; /* Remove margin to prevent gaps in wrapper */
+  overflow-x: auto;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.main-content code {
+  background: rgba(239, 68, 68, 0.1);
+  color: $kali-red;
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Consolas', 'source-code-pro', monospace;
+  font-size: 0.9em;
+}
+
+.main-content pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: $kali-text; /* Brighter text for better contrast */
+}
+
+/* Ensure all code elements have good contrast */
+.main-content pre code *,
+.main-content pre code span,
+.highlight pre code * {
+  color: inherit !important; /* Prevent black/dark text */
+}
+
+/* Syntax highlighting overrides - More colorful and vibrant */
+.highlight .p, .highlight .o, .highlight .err {
+  color: #e6edf3 !important; /* Punctuation, operators, errors - light color */
+}
+
+.highlight .s, .highlight .s1, .highlight .s2 {
+  color: #7ee787 !important; /* Strings - bright green */
+}
+
+.highlight .k, .highlight .kd, .highlight .kn {
+  color: #ff7b72 !important; /* Keywords - light red/pink */
+}
+
+.highlight .n, .highlight .nf, .highlight .nc {
+  color: #d2a8ff !important; /* Names, functions - light purple */
+}
+
+.highlight .m, .highlight .mi, .highlight .mf {
+  color: #79c0ff !important; /* Numbers - bright blue */
+}
+
+.highlight .c, .highlight .c1, .highlight .cm {
+  color: #8b949e !important; /* Comments - gray */
+}
+
+.highlight .nb {
+  color: #ffa657 !important; /* Built-ins - orange */
+}
+
+.highlight .bp {
+  color: #79c0ff !important; /* Built-in pseudo - blue */
+}
+
+.highlight .kc {
+  color: #79c0ff !important; /* Keyword constant - blue */
+}
+
+.highlight .kt {
+  color: #ff7b72 !important; /* Keyword type - red */
+}
+
+.highlight .na {
+  color: #79c0ff !important; /* Name attribute - blue */
+}
+
+.highlight .nn {
+  color: #ffa657 !important; /* Name namespace - orange */
+}
+
+.highlight .nv {
+  color: #79c0ff !important; /* Name variable - blue */
+}
+
+.highlight .ow {
+  color: #ff7b72 !important; /* Operator word - red */
+}
+
+.highlight .ss {
+  color: #a5d6ff !important; /* Symbol - light blue */
+}
+
+.highlight .vc, .highlight .vg, .highlight .vi {
+  color: #ffa657 !important; /* Variables - orange */
+}
+
+/* Blockquotes */
+.main-content blockquote {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.1), transparent);
+  border-left: 5px solid $kali-red;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 6px;
+  color: $kali-text;
+  font-style: italic;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Tables - Kali themed */
+.main-content table {
+  background: rgba(26, 26, 26, 0.4);
+  border-collapse: collapse;
+  width: 100%;
+  margin: 2rem 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.main-content table thead {
+  background: linear-gradient(135deg, $kali-bg-secondary 0%, $kali-darker 100%);
+}
+
+.main-content table th {
+  color: $kali-red;
+  font-weight: 600;
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 2px solid $primary-color;
+}
+
+.main-content table td {
+  color: #d0d0d0;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid rgba(59, 130, 246, 0.1);
+}
+
+.main-content table tbody tr:hover {
+  background: rgba(59, 130, 246, 0.05);
+}
+
+/* Horizontal rules */
+.main-content hr {
+  border: none;
+  border-top: 2px solid rgba(59, 130, 246, 0.3);
+  margin: 3rem 0;
+}
+
+/* Footer */
+.site-footer {
+  background: linear-gradient(135deg, $kali-darker 0%, $kali-dark 100%);
+  color: $kali-text-muted;
+  padding: 2rem 0;
+  margin-top: 3rem;
+  border-top: 3px solid $kali-red;
+  text-align: center;
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: -3px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, $kali-red 50%, transparent 100%);
+    opacity: 0.5;
+  }
+}
+
+.site-footer-owner {
+  color: $kali-red;
+  font-weight: 600;
+}
+
+.site-footer a {
+  color: $kali-red;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.site-footer a:hover {
+  color: $kali-accent;
+}
+
+/* Improve readability */
+.main-content img {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  margin: 2rem 0;
+}
+
+/* Selection styling */
+::selection {
+  background-color: $primary-color;
+  color: $accent-bg;
+}
+
+::-moz-selection {
+  background-color: $primary-color;
+  color: $accent-bg;
+}
+
+/* Responsive design */
+@media screen and (max-width: $mobile-breakpoint) {
+  .main-content {
+    padding: 2rem 1.5rem;
+  }
+  
+  .post-item {
+    padding: 1.5rem;
+  }
+  
+  .main-content h1 {
+    font-size: 2rem;
+  }
+  
+  .main-content h2 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Smooth transitions */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Focus states for accessibility */
+a:focus,
+button:focus,
+.btn:focus {
+  outline: 2px solid $primary-color;
+  outline-offset: 2px;
+}
+
+/* ===== Search Functionality ===== */
+#search-container {
+  position: relative;
+  margin: 2rem auto;
+  max-width: 600px;
+}
+
+#search-input {
+  width: 100%;
+  padding: 0.875rem 1.25rem;
+  background: $gray-800;
+  border: 1px solid $border-color;
+  border-radius: 6px;
+  color: $text-light;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+#search-input:focus {
+  outline: none;
+  border-color: $primary-color;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  background: $gray-800;
+}
+
+#search-input::placeholder {
+  color: $gray-400;
+}
+
+#search-results {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: $gray-800;
+  border: 1px solid $border-color;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+  max-height: 500px;
+  overflow-y: auto;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+.search-results-count {
+  padding: 1rem 1.5rem;
+  color: $primary-color;
+  font-weight: 600;
+  border-bottom: 1px solid $border-color;
+}
+
+.search-result-item {
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid $border-color;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.search-result-item:hover {
+  background: $gray-700;
+}
+
+.search-result-item:last-child {
+  border-bottom: none;
+}
+
+.search-result-title {
+  color: $primary-color !important;
+  font-size: 1.2rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.search-result-title:hover {
+  color: lighten($primary-color, 10%) !important;
+}
+
+.search-result-excerpt {
+  color: #c0c0c0;
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.search-result-meta {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 0.9rem;
+}
+
+.search-no-results {
+  padding: 2rem;
+  text-align: center;
+  color: #c0c0c0;
+}
+
+/* ===== Back to Top Button ===== */
+#back-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+  color: $accent-bg;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.4s ease;
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+  z-index: 999;
+}
+
+#back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+#back-to-top:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.6);
+}
+
+/* ===== Copy Code Button ===== */
+.code-block-wrapper {
+  position: relative;
+  margin: 2rem 0;
+}
+
+.copy-code-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: $gray-700;
+  color: $gray-300;
+  border: 1px solid $border-color;
+  border-radius: 3px;
+  padding: 0.3rem 0.7rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  z-index: 10;
+  opacity: 0.7;
+}
+
+.copy-code-btn:hover {
+  background: $gray-600;
+  border-color: $primary-color;
+  color: $white;
+  opacity: 1;
+}
+
+.copy-code-btn.copied {
+  background: $gray-600;
+  border-color: $success;
+  color: $success;
+  opacity: 1;
+}
+
+/* Copy section link button */
+.copy-section-link {
+  display: inline-block;
+  margin-left: 0.5rem;
+  background: transparent;
+  color: $kali-red;
+  border: 1px solid transparent;
+  padding: 0.2rem 0.5rem;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  opacity: 0;
+  vertical-align: middle;
+}
+
+.post-content h2:hover .copy-section-link,
+.post-content h3:hover .copy-section-link,
+.post-content h4:hover .copy-section-link {
+  opacity: 1;
+}
+
+.copy-section-link:hover {
+  border-color: $kali-red;
+  background: rgba(239, 68, 68, 0.1);
+  box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+}
+
+.copy-section-link.copied {
+  color: $success;
+  border-color: $success;
+  opacity: 1;
+}
+
+/* ===== Post Layout - Full Width Design ===== */
+.post {
+  background: $kali-dark;
+  margin: 0;
+  padding: 0;
+}
+
+/* Ultra-compact header section - Kali themed */
+.post-header-section {
+  background: linear-gradient(180deg, $kali-darker 0%, $kali-dark 100%);
+  padding: 1.25rem 3rem 1rem 3rem;
+  border-bottom: 2px solid $kali-red;
+  position: relative;
+  margin-left: calc(#{$toc-sidebar-width} + #{$toc-sidebar-border}); /* Reserve space for fixed sidebar */
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, $kali-red 50%, transparent 100%);
+    opacity: 0.5;
+  }
+}
+
+.post-header {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.post-title {
+  margin: 0 0 0.5rem 0;
+  color: $kali-text;
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.15;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* ===== Two-Column Post Layout with Fixed Sidebar TOC ===== */
+.post-layout {
+  display: block; /* Changed from grid to block to work with fixed sidebar */
+  margin: 0;
+  padding: 0;
+  max-width: 100%;
+  /* Content will have margin-left to make space for fixed sidebar */
+}
+
+/* Fixed Sidebar TOC - Kali themed */
+.sidebar-toc {
+  position: fixed;
+  top: 50px; /* Start below the navigation header */
+  left: 0;
+  width: $toc-sidebar-width;
+  height: calc(100vh - 50px); /* Adjust height to account for nav bar */
+  background: $kali-darker;
+  padding: 0; /* No padding - let the wrapper handle spacing */
+  border-right: $toc-sidebar-border solid $kali-border;
+  overflow: hidden; /* Prevent sidebar itself from scrolling */
+  z-index: 100; /* Above content but below nav bar (1000) */
+}
+
+.toc-wrapper {
+  position: relative;
+  top: 0;
+  height: 100%;
+  max-height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 1.5rem 0.75rem; /* Reduced padding for tighter spacing */
+}
+
+/* Scrollbar styling for TOC - Kali themed */
+.toc-wrapper::-webkit-scrollbar {
+  width: 6px;
+}
+
+.toc-wrapper::-webkit-scrollbar-track {
+  background: $kali-darker;
+}
+
+.toc-wrapper::-webkit-scrollbar-thumb {
+  background: $kali-red;
+  border-radius: 3px;
+}
+
+.toc-wrapper::-webkit-scrollbar-thumb:hover {
+  background: $kali-accent;
+}
+
+/* Main content wrapper - Kali themed */
+.post-content-wrapper {
+  min-width: 0; /* Prevents grid overflow */
+  padding: 2rem 3rem;
+  background: $kali-dark;
+  margin-left: calc(#{$toc-sidebar-width} + #{$toc-sidebar-border}); /* Reserve space for fixed sidebar */
+}
+
+.post-content {
+  max-width: 900px; /* Optimal reading width */
+  margin: 0 auto;
+}
+
+/* ===== Table of Contents - Kali themed ===== */
+#table-of-contents {
+  background: $kali-bg-secondary;
+  border-left: 3px solid $kali-red;
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+#table-of-contents h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: $kali-text;
+  border: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.toc-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc-item {
+  margin: 0.5rem 0;
+  line-height: 1.4;
+}
+
+.toc-item a {
+  color: $kali-text-muted;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  display: block;
+  padding: 0.4rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.95rem;
+}
+
+.toc-item a:hover {
+  color: $kali-text;
+  background: $kali-bg-primary;
+  transform: none;
+  border-bottom: none;
+}
+
+.toc-item.active a {
+  color: $kali-red;
+  background: rgba(239, 68, 68, 0.1);
+  border-left: 2px solid $kali-red;
+  padding-left: 0.75rem;
+}
+
+.toc-h3 {
+  padding-left: 1.5rem;
+  font-size: 0.9rem;
+}
+
+.toc-h3 a {
+  color: $kali-text-muted;
+}
+
+/* Mobile Toggle for TOC - Kali themed */
+.toc-mobile-toggle {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: $kali-red;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.5);
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.toc-mobile-toggle:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  .sidebar-toc {
+    width: $toc-sidebar-width-tablet;
+    padding: 1.5rem 1rem;
+  }
+  
+  .post-header-section {
+    margin-left: calc(#{$toc-sidebar-width-tablet} + #{$toc-sidebar-border}); /* Adjust for smaller fixed sidebar */
+  }
+  
+  .post-content-wrapper {
+    padding: 2rem 2rem;
+    margin-left: calc(#{$toc-sidebar-width-tablet} + #{$toc-sidebar-border}); /* Reserve space for smaller fixed sidebar */
+  }
+}
+
+@media (max-width: $mobile-breakpoint) {
+  .post-header-section {
+    padding: 2rem 1.5rem;
+    margin-left: 0; /* Reset margin for mobile */
+  }
+  
+  .post-title {
+    font-size: 2rem;
+  }
+  
+  .post-layout {
+    display: block;
+    position: static; /* Remove stacking context on mobile */
+    z-index: auto; /* Allow sidebar to escape */
+  }
+  
+  .post-content-wrapper {
+    margin-left: 0; /* Reset margin for mobile */
+    padding: 2rem 1.5rem;
+  }
+  
+  .sidebar-toc {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 280px;
+    height: 100vh;
+    background: $gray-800;
+    border-right: 1px solid $border-color;
+    z-index: 10002;  /* Highest: above everything including overlay (999) */
+    transition: left 0.3s ease;
+    overflow: hidden; /* Let toc-wrapper handle scrolling */
+    padding: 0; /* Remove padding from sidebar */
+    pointer-events: auto;  /* Ensure sidebar receives click events */
+    transform: translateZ(0);  /* Force new stacking context */
+    isolation: isolate;  /* Create isolated stacking context */
+  }
+  
+  .sidebar-toc.active {
+    left: 0;
+    /* Ensure sidebar is above everything including overlay */
+    position: fixed;
+    z-index: 10002;
+  }
+  
+  .toc-wrapper {
+    position: relative;
+    height: 100%;
+    max-height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 1.5rem 0.75rem; /* Padding on wrapper for proper scrolling */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  }
+  
+  .post-content-wrapper {
+    padding: 2rem 1.5rem;
+  }
+  
+  .toc-mobile-toggle {
+    display: block;
+  }
+  
+  /* Make TOC items more touch-friendly on mobile */
+  .toc-item {
+    position: relative;  /* Ensure items are positioned within sidebar's stacking context */
+  }
+  
+  .toc-item a {
+    padding: 0.75rem 1rem;  /* Larger tap targets */
+    font-size: 1rem;  /* Slightly larger for readability */
+    touch-action: manipulation;  /* Prevent double-tap zoom */
+    position: relative;  /* Ensure links are positioned */
+  }
+  
+  .toc-h3 {
+    padding-left: 2rem;  /* More indentation for h3 items */
+  }
+  
+  /* Overlay for mobile */
+  .toc-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;  /* Below nav bar (1000) and TOC sidebar (1100) */
+    pointer-events: auto;  /* Ensure overlay receives clicks to close */
+    cursor: pointer;  /* Show it's clickable */
+  }
+  
+  .toc-overlay.active {
+    display: block;
+  }
+}
+
+/* ===== Reading Time ===== */
+.reading-time {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(59, 130, 246, 0.15);
+  border-radius: 6px;
+  color: $primary-color;
+  font-size: 0.9rem;
+  margin-left: 1rem;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* ===== Social Sharing ===== */
+.social-sharing {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(75, 85, 99, 0.4) 100%);
+  border-radius: 8px;
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  text-align: center;
+}
+
+.social-sharing h3 {
+  margin-top: 0;
+  color: $primary-color;
+  font-size: 1.2rem;
+}
+
+.share-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.share-btn {
+  padding: 0.75rem 1.5rem;
+  background: rgba(59, 130, 246, 0.2);
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: $primary-color;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+/* ===== Category Tags ===== */
+.category-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0;
+}
+
+.category-tag {
+  display: inline-block;
+  padding: 0.15rem 0.4rem;
+  background: rgba(59, 130, 246, 0.1);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 2px;
+  color: $primary-color;
+  font-size: 0.7rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.category-tag:hover {
+  background: rgba(59, 130, 246, 0.2);
+  border-color: $primary-color;
+}
+
+/* ===== Related Posts ===== */
+.related-posts {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid rgba(59, 130, 246, 0.3);
+}
+
+.related-posts h2 {
+  color: $primary-color;
+  margin-bottom: 1.5rem;
+}
+
+.related-posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.related-post-card {
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.6) 0%, rgba(75, 85, 99, 0.6) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.related-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.4);
+}
+
+.related-post-card h3 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+.related-post-card a {
+  color: $primary-color;
+  text-decoration: none;
+}
+
+.related-post-card a:hover {
+  color: lighten($primary-color, 10%);
+}
+
+/* ===== Scroll Animations ===== */
+.fade-in {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== Category Filter ===== */
+.category-filter {
+  margin: 2rem 0;
+  text-align: center;
+}
+
+.filter-btn {
+  padding: 0.6rem 1.2rem;
+  margin: 0.3rem;
+  background: rgba(239, 68, 68, 0.1);
+  border: 2px solid rgba(239, 68, 68, 0.3);
+  border-radius: 25px;
+  color: $kali-red;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+  background: rgba(239, 68, 68, 0.2);
+  border-color: $kali-red;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px rgba(239, 68, 68, 0.3);
+}
+
+/* ===== Tool Cards ===== */
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.tool-card {
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.6) 0%, rgba(75, 85, 99, 0.6) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.4s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 12px 32px rgba(59, 130, 246, 0.3);
+  border-color: rgba(59, 130, 246, 0.5);
+}
+
+.tool-card h3 {
+  color: $primary-color;
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+
+.tool-card .tool-icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.tool-card .tool-description {
+  color: #d0d0d0;
+  line-height: 1.8;
+}
+
+.tool-card .tool-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.5rem;
+  background: rgba(59, 130, 246, 0.2);
+  border: 2px solid rgba(59, 130, 246, 0.3);
+  border-radius: 8px;
+  color: $primary-color;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.tool-card .tool-link:hover {
+  background: rgba(59, 130, 246, 0.3);
+  border-color: $primary-color;
+  transform: scale(1.05);
+}
+
+/* ===== Alert/Warning Boxes ===== */
+.alert {
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 8px;
+  border-left: 5px solid;
+}
+
+.alert-info {
+  background: rgba(33, 150, 243, 0.1);
+  border-color: #2196f3;
+  color: #64b5f6;
+}
+
+.alert-warning {
+  background: rgba(255, 152, 0, 0.1);
+  border-color: #ff9800;
+  color: #ffb74d;
+}
+
+.alert-danger {
+  background: rgba(244, 67, 54, 0.1);
+  border-color: #f44336;
+  color: #e57373;
+}
+
+.alert-success {
+  background: rgba(59, 130, 246, 0.1);
+  border-color: $primary-color;
+  color: $primary-color;
+}
+
+/* ===== Responsive Updates ===== */
+@media screen and (max-width: $mobile-breakpoint) {
+  #back-to-top {
+    bottom: 1rem;
+    right: 1rem;
+    width: 45px;
+    height: 45px;
+    font-size: 1.2rem;
+  }
+
+  .tool-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .related-posts-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #search-container {
+    margin: 1rem;
+  }
+
+  .share-buttons {
+    flex-direction: column;
+  }
+
+  .category-filter {
+    text-align: left;
+  }
+}
+
+/* ===== Report-Specific Features ===== */
+
+/* Reading Progress Bar - already styled inline */
+
+/* Citation Modal */
+.citation-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.citation-content {
+  background: $darker-bg;
+  border: 2px solid $primary-color;
+  border-radius: 12px;
+  padding: 2rem;
+  max-width: 600px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.citation-content h3 {
+  margin-top: 0;
+  color: $primary-color;
+  border-bottom: 2px solid $border-color;
+  padding-bottom: 1rem;
+}
+
+.citation-format {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: $accent-bg;
+  border-radius: 8px;
+  border-left: 3px solid $secondary-color;
+}
+
+.citation-format h4 {
+  margin: 0 0 0.5rem 0;
+  color: $secondary-color;
+  font-size: 1rem;
+}
+
+.citation-text {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  color: $text-light;
+  background: $dark-bg;
+  padding: 1rem;
+  border-radius: 4px;
+  margin: 0.5rem 0;
+  line-height: 1.6;
+}
+
+.copy-citation {
+  padding: 0.5rem 1rem;
+  background: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.copy-citation:hover {
+  background: lighten($primary-color, 10%);
+  transform: translateY(-2px);
+}
+
+.close-modal {
+  width: 100%;
+  padding: 0.75rem;
+  background: $border-color;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  margin-top: 1rem;
+  transition: all 0.3s ease;
+}
+
+.close-modal:hover {
+  background: lighten($border-color, 10%);
+}
+
+/* Report Metadata - Ultra-compact and Professional */
+.report-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 0.4rem 0;
+  margin: 0.3rem 0 0.9rem 0;
+  font-size: 0.75rem;
+  color: $kali-text-muted;
+  border-bottom: 1px solid $kali-border;
+}
+
+.metadata-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: $kali-text-muted;
+  font-weight: 400;
+  font-size: 0.8rem;
+  padding: 0.25rem 0;
+}
+
+.metadata-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.metadata-badge.updated {
+  background: $kali-red;
+  color: white;
+}
+
+/* Report Action Buttons - Kali themed */
+.report-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+}
+
+.report-action-btn {
+  padding: 0.3rem 0.7rem;
+  background: $kali-bg-secondary;
+  color: $kali-text-muted;
+  border: 1px solid $kali-border;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.75rem;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: all 0.2s ease;
+}
+
+.report-action-btn:hover {
+  background: $kali-bg-primary;
+  border-color: $kali-red;
+  color: $kali-text;
+}
+
+.report-action-btn.secondary {
+  background: $kali-bg-secondary;
+  border-color: $kali-border;
+}
+
+.report-action-btn.secondary:hover {
+  background: $kali-bg-primary;
+  border-color: $kali-border;
+}
+
+.report-action-btn.bookmarked {
+  background: $kali-bg-secondary;
+  border-color: $kali-red;
+  color: $kali-red;
+}
+
+/* Collapsible Sections */
+.collapsible-section {
+  margin: 2rem 0;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.collapsible-header {
+  padding: 1rem 1.5rem;
+  background: $accent-bg;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 600;
+  color: $primary-color;
+  transition: all 0.3s ease;
+}
+
+.collapsible-header:hover {
+  background: lighten($accent-bg, 5%);
+}
+
+.collapsible-header::after {
+  content: '▼';
+  transition: transform 0.3s ease;
+}
+
+.collapsible-section.collapsed .collapsible-header::after {
+  transform: rotate(-90deg);
+}
+
+.collapsible-content {
+  max-height: 5000px;
+  overflow: hidden;
+  transition: max-height 0.5s ease;
+  padding: 1.5rem;
+  background: rgba(31, 41, 55, 0.3);
+}
+
+.collapsible-section.collapsed .collapsible-content {
+  max-height: 0;
+  padding: 0 1.5rem;
+}
+
+/* Table of Figures */
+#table-of-figures {
+  background: $gray-800;
+  border-left: 3px solid $gray-500;
+  border-radius: 4px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+}
+
+#table-of-figures h2 {
+  margin-top: 0;
+  font-size: 1.1rem;
+  color: $white;
+  border: none;
+  padding: 0;
+  margin-bottom: 1rem;
+}
+
+.tof-list {
+  list-style: decimal;
+  padding-left: 1.5rem;
+  margin: 0;
+}
+
+.tof-list li {
+  margin: 0.5rem 0;
+  line-height: 1.4;
+}
+
+.tof-list a {
+  color: $gray-300;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  font-size: 0.95rem;
+}
+
+.tof-list a:hover {
+  color: $primary-color;
+  padding-left: 0;
+}
+
+/* Footnotes */
+.footnote-ref {
+  color: $secondary-color;
+  text-decoration: none;
+  font-size: 0.85em;
+  vertical-align: super;
+  cursor: pointer;
+  padding: 0 0.25rem;
+}
+
+.footnote-ref:hover {
+  color: lighten($secondary-color, 10%);
+}
+
+.footnotes {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 2px solid $border-color;
+  font-size: 0.9rem;
+}
+
+.footnote-item {
+  margin: 1rem 0;
+  padding: 0.5rem;
+  transition: background 0.3s ease;
+}
+
+.footnote-item.highlight-footnote {
+  background: rgba(107, 114, 128, 0.2);
+  border-left: 3px solid $secondary-color;
+  padding-left: 1rem;
+}
+
+/* Section Anchors */
+.section-anchor {
+  opacity: 0;
+  margin-left: 0.5rem;
+  font-size: 0.7em;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+h2:hover .section-anchor,
+h3:hover .section-anchor {
+  opacity: 1;
+}
+
+/* Report Statistics - Compact Sidebar Style */
+.report-statistics {
+  background: rgba(31, 41, 55, 0.3);
+  border-radius: 4px;
+  padding: 0.75rem;
+  margin: 1rem 0;
+  border: 1px solid $border-color;
+  font-size: 0.75rem;
+}
+
+.report-stats-title {
+  margin: 0 0 0.5rem 0;
+  color: $gray-400;
+  font-size: 0.8rem;
+  font-weight: 600;
+  font-size: 1.3rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.stat-item {
+  text-align: left;
+  padding: 0.4rem 0.6rem;
+  background: rgba(31, 41, 55, 0.3);
+  border-radius: 3px;
+  border: 1px solid rgba(75, 85, 99, 0.3);
+  font-size: 0.75rem;
+}
+
+.stat-value {
+  font-size: 1rem;
+  font-weight: 600;
+  color: $primary-color;
+  margin-right: 0.4rem;
+  display: inline;
+}
+
+.stat-label {
+  font-size: 0.75rem;
+  color: $text-muted;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Page Layout Styles - Kali Themed ===== */
+.page {
+  background: $kali-dark;
+  margin: 0;
+  padding: 0;
+}
+
+.page-header {
+  background: linear-gradient(180deg, $kali-darker 0%, $kali-dark 100%);
+  padding: 2rem 3rem;
+  border-bottom: 2px solid $kali-red;
+  position: relative;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, $kali-red 50%, transparent 100%);
+    opacity: 0.5;
+  }
+}
+
+.page-title {
+  margin: 0;
+  color: $kali-text;
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem;
+  background: $kali-dark;
+  color: $kali-text;
+}
+
+.page-footer {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 3rem;
+  border-top: 1px solid $kali-border;
+  color: $kali-text-muted;
+}
+
+.page-footer a {
+  color: $kali-link;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.page-footer a:hover {
+  color: lighten($kali-link, 10%);
+}
+
+/* ===== Archive Page Styles - Kali Themed ===== */
+.year-section {
+  margin: 3rem 0;
+}
+
+.year-section h2 {
+  font-size: 2rem;
+  color: $kali-red !important;
+  border-bottom: 3px solid $kali-red !important;
+  padding-bottom: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.month-section {
+  margin: 2rem 0;
+}
+
+.month-section h3 {
+  font-size: 1.5rem;
+  color: $kali-accent !important;
+  margin-bottom: 1rem;
+}
+
+.archive-posts {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.archive-post-item {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, rgba(10, 10, 10, 0.6) 0%, rgba(26, 26, 26, 0.6) 100%) !important;
+  border-radius: 8px;
+  border-left: 4px solid $kali-red !important;
+  transition: all 0.3s ease;
+}
+
+.archive-post-item:hover {
+  transform: translateX(10px);
+  box-shadow: 0 8px 24px rgba(239, 68, 68, 0.3) !important;
+  border-left-color: $kali-accent !important;
+}
+
+.archive-post-date {
+  font-size: 2rem;
+  font-weight: 700;
+  color: $kali-red !important;
+  min-width: 60px;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(239, 68, 68, 0.1) !important;
+  border-radius: 8px;
+  border: 1px solid rgba(239, 68, 68, 0.3) !important;
+}
+
+.archive-post-content {
+  flex: 1;
+}
+
+.archive-post-content h4 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.3rem;
+}
+
+.archive-post-content h4 a {
+  color: $kali-red !important;
+  text-decoration: none;
+}
+
+.archive-post-content h4 a:hover {
+  color: $kali-accent !important;
+}
+
+.archive-post-content p {
+  margin: 0.5rem 0 0 0;
+  color: $kali-text-muted !important;
+}
+
+@media screen and (max-width: 768px) {
+  .archive-post-item {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .archive-post-date {
+    min-width: auto;
+  }
+}
+
+/* Print Styles */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .page-header,
+  .site-footer,
+  .report-actions,
+  .social-sharing,
+  #back-to-top,
+  #search-container,
+  .btn,
+  nav {
+    display: none !important;
+  }
+
+  .main-content {
+    background: white;
+    box-shadow: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .post-content {
+    color: black;
+  }
+
+  .post-content a {
+    color: #0066cc;
+    text-decoration: underline;
+  }
+
+  .post-content code,
+  .post-content pre {
+    border: 1px solid #ccc;
+    background: #f5f5f5;
+    color: black;
+  }
+
+  .report-metadata {
+    border: 1px solid #ccc;
+    background: #f9f9f9;
+  }
+
+  /* Page breaks */
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  pre, blockquote, table {
+    page-break-inside: avoid;
+  }
+
+  img {
+    max-width: 100%;
+    page-break-inside: avoid;
+  }
+}
+
+/* Syntax Theme Variants */
+[data-syntax-theme="light"] pre code {
+  background: #f8f9fa;
+  color: #212529;
+}
+
+[data-syntax-theme="solarized"] pre code {
+  background: #002b36;
+  color: #839496;
+}
+
+[data-syntax-theme="monokai"] pre code {
+  background: #272822;
+  color: #f8f8f2;
+}
+
+/* ===== New Features Styles ===== */
+
+/* Keyboard Shortcuts Modal */
+.shortcuts-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.2s ease;
+}
+
+.shortcuts-content {
+  background: $gray-800;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 500px;
+  width: 90%;
+}
+
+.shortcuts-content h3 {
+  margin-top: 0;
+  color: $white;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 1rem;
+}
+
+.shortcuts-table {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+}
+
+.shortcuts-table tr {
+  border-bottom: 1px solid $gray-700;
+}
+
+.shortcuts-table td {
+  padding: 0.75rem 0.5rem;
+  color: $text-light;
+}
+
+.shortcuts-table td:first-child {
+  width: 80px;
+}
+
+.shortcuts-table kbd {
+  background: $gray-700;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-family: monospace;
+  font-size: 0.9em;
+  color: $white;
+}
+
+/* Quick Navigation Menu */
+.quick-nav-menu {
+  position: fixed;
+  top: 80px;
+  right: 20px;
+  background: $gray-800;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  min-width: 200px;
+}
+
+.quick-nav-menu.hidden {
+  display: none;
+}
+
+.quick-nav-content {
+  padding: 1rem;
+}
+
+.quick-nav-content h4 {
+  margin: 0 0 1rem 0;
+  color: $white;
+  font-size: 1rem;
+}
+
+.quick-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.quick-nav-list li {
+  margin: 0.5rem 0;
+}
+
+.quick-nav-list a,
+.quick-nav-list button {
+  color: $primary-color;
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background 0.2s ease;
+  background: none;
+  border: none;
+  text-align: left;
+  width: 100%;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+
+.quick-nav-list a:hover,
+.quick-nav-list button:hover {
+  background: $gray-700;
+}
+
+/* Version History */
+.version-history {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  background: $gray-800;
+  border: 1px solid $border-color;
+  border-radius: 8px;
+}
+
+.version-list {
+  margin-top: 1rem;
+}
+
+.version-item {
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: $gray-700;
+  border-left: 3px solid $primary-color;
+  border-radius: 4px;
+}
+
+.version-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.version-number {
+  font-weight: 600;
+  color: $primary-color;
+  font-size: 1.1rem;
+}
+
+.version-date {
+  color: $text-muted;
+  font-size: 0.9rem;
+}
+
+.version-changes {
+  list-style: none;
+  padding-left: 0;
+}
+
+.version-changes li {
+  padding: 0.25rem 0;
+  color: $text-light;
+}
+
+.version-changes li:before {
+  content: "• ";
+  color: $primary-color;
+  margin-right: 0.5rem;
+}
+
+/* Freshness Badges */
+.freshness-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-left: 1rem;
+}
+
+.freshness-badge.recent {
+  background: $success;
+  color: white;
+}
+
+.freshness-badge.old {
+  background: $warning;
+  color: $gray-900;
+}
+
+/* Update reading progress bar for monochromatic theme */
+#reading-progress {
+  background: linear-gradient(90deg, $primary-color, $gray-600) !important;
+}
+
+/* Homepage Enhancements */
+.homepage-welcome {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: $gray-800;
+  border-left: 3px solid $primary-color;
+  border-radius: 4px;
+}
+
+.welcome-text {
+  margin: 0;
+  font-size: 1rem;
+  color: $text-light;
+  line-height: 1.6;
+}
+
+.homepage-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+
+  @media (min-width: $mobile-breakpoint) {
+    grid-template-columns: 2fr 1fr;
+  }
+}
+
+.homepage-section {
+  background: $gray-800;
+  padding: 1.5rem;
+  border-radius: 4px;
+  border: 1px solid $border-color;
+
+  h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.25rem;
+    color: $text-light;
+    border-bottom: 1px solid $border-color;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.homepage-stats {
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
+  .stat-card {
+    display: block;
+    padding: 1rem;
+    background: $gray-700;
+    border: 1px solid $border-color;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: $gray-600;
+      border-color: $primary-color;
+      transform: translateY(-2px);
+    }
+
+    .stat-number {
+      font-size: 1.75rem;
+      font-weight: 600;
+      color: $primary-color;
+      margin-bottom: 0.25rem;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: $text-muted;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: $mobile-breakpoint) {
+  .homepage-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .homepage-stats .stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ================================================================ */
+/* KALI LINUX INSPIRED DESIGN */
+/* Professional Penetration Testing Documentation Platform */
+/* ================================================================ */
+
+/* Landing Splash Screen - Full Screen Animation */
+.landing-splash {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, $kali-darker 0%, $kali-dark 50%, $kali-darker 100%);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+}
+
+.splash-fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.landing-content {
+  text-align: center;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.landing-logo {
+  margin-bottom: 2rem;
+  animation: pulse 2s ease-in-out infinite;
+  
+  svg {
+    filter: drop-shadow(0 0 20px rgba(239, 68, 68, 0.5));
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.landing-title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: $kali-text;
+  margin: 0 0 1rem 0;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+  
+  .landing-accent {
+    color: $kali-red;
+    margin-left: 0.2em;
+  }
+}
+
+.landing-tagline {
+  font-size: 1rem;
+  color: $kali-red;
+  margin: 0 0 3rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Courier New', monospace;
+}
+
+.landing-loader {
+  width: 300px;
+  height: 4px;
+  background: $kali-gray;
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 0 auto;
+}
+
+.loader-bar {
+  height: 100%;
+  background: linear-gradient(90deg, $kali-red 0%, $kali-accent 100%);
+  width: 0%;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px $kali-red;
+}
+
+/* Page Transition Loader */
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(10, 10, 10, 0.98);
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-out;
+  backdrop-filter: blur(5px);
+}
+
+.page-loader.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.page-loader-content {
+  text-align: center;
+  animation: fadeInUp 0.5s ease-out;
+}
+
+.page-loader-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+  font-family: 'Courier New', monospace;
+  font-size: 2rem;
+  color: $kali-text;
+}
+
+.page-loader-brackets {
+  color: $kali-red;
+  font-weight: 700;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.page-loader-text {
+  color: $kali-text;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.page-loader-bar-container {
+  width: 250px;
+  height: 3px;
+  background: $kali-gray;
+  border-radius: 2px;
+  overflow: hidden;
+  margin: 0 auto 1rem auto;
+}
+
+.page-loader-bar {
+  height: 100%;
+  background: linear-gradient(90deg, $kali-red 0%, $kali-accent 100%);
+  width: 0%;
+  transition: width 0.3s ease-out;
+  box-shadow: 0 0 10px $kali-red;
+}
+
+.page-loader-status {
+  font-family: 'Courier New', monospace;
+  font-size: 0.85rem;
+  color: $kali-red;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  animation: blink 1.5s ease-in-out infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Hero Section - Kali Style */
+.hero-section-kali {
+  background: linear-gradient(180deg, $kali-darker 0%, $kali-dark 100%);
+  border-bottom: 2px solid $kali-red;
+  padding: 0; /* Remove padding for edge-to-edge full-screen */
+  margin: 0; /* Remove all margins */
+  margin-bottom: 0;
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh; /* Full screen height */
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent 0%, $kali-red 50%, transparent 100%);
+    z-index: 3;
+  }
+  
+  /* Mobile responsiveness - Keep full screen on mobile */
+  @media (max-width: $mobile-breakpoint) {
+    min-height: 100vh;
+    height: 100vh; /* Keep full height on mobile */
+    padding: 0; /* Remove padding to maintain full-screen effect */
+  }
+}
+
+/* Video Background for Hero Section */
+.hero-video-background {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+  object-fit: cover;
+  opacity: 0.5;
+  
+  /* Fallback for browsers that don't support autoplay */
+  &::-webkit-media-controls {
+    display: none !important;
+  }
+}
+
+/* Overlay to ensure text readability over video */
+.hero-video-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 10, 10, 0.2) 0%,
+    rgba(26, 26, 26, 0.25) 50%,
+    rgba(10, 10, 10, 0.2) 100%
+  );
+  z-index: 1;
+}
+
+/* Ensure content is above video */
+.hero-content-kali {
+  position: relative;
+  z-index: 2;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 2rem; /* Add horizontal padding for all screens */
+  
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0; /* No padding on mobile for true full-screen effect like PC */
+    max-width: 100%; /* Use full width on mobile */
+    margin: 0; /* Remove auto margins for full-screen */
+  }
+}
+
+.hero-title-kali {
+  font-size: 4rem;
+  font-weight: 700;
+  color: $white;
+  margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-family: 'Courier New', monospace;
+  text-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+  
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 1.8rem; /* Smaller but still impactful */
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+}
+
+.hero-subtitle-kali {
+  font-size: 1.2rem;
+  color: $kali-text;
+  margin: 0 0 3rem 0;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.8;
+  
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+}
+
+.hero-stats-kali {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.hero-stat-kali {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none !important; /* Force no underlines */
+  padding: 1.5rem 2.5rem;
+  background: rgba(239, 68, 68, 0.05);
+  border: 2px solid rgba(239, 68, 68, 0.2);
+  border-radius: 0;
+  transition: all 0.3s ease;
+  min-width: 150px;
+  position: relative; /* Needed for pseudo-element positioning */
+  /* No z-index so it doesn't compete with scroll indicator's z-index: 100 */
+  
+  /* Remove underlines from stat elements */
+  .stat-number-kali,
+  .stat-label-kali {
+    text-decoration: none !important;
+  }
+  
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 2px solid $kali-red;
+    transition: all 0.3s ease;
+  }
+  
+  &::before {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+  }
+  
+  &::after {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+  }
+  
+  &:hover {
+    background: rgba(239, 68, 68, 0.1);
+    border-color: $kali-red;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(239, 68, 68, 0.3);
+    text-decoration: none !important; /* No underline on hover */
+    
+    &::before,
+    &::after {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0.6rem 0.75rem; /* Minimal padding for square appearance */
+    min-width: 80px; /* Smaller minimum width */
+    max-width: calc(33.33% - 1rem); /* Allow 3 per row on mobile */
+    flex: 0 1 calc(33.33% - 1rem); /* Flexible sizing for 3 columns */
+    aspect-ratio: 1 / 1; /* Force square shape */
+    justify-content: center; /* Center content vertically in square */
+  }
+}
+
+.stat-number-kali {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: $kali-red;
+  line-height: 1;
+  margin-bottom: 0.5rem;
+  font-family: 'Courier New', monospace;
+  
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 1.5rem; /* Smaller font on mobile */
+  }
+}
+
+.stat-label-kali {
+  font-size: 0.85rem;
+  color: $kali-text;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-family: 'Courier New', monospace;
+  text-decoration: none; /* Remove any underlines */
+  
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 0.7rem; /* Smaller font on mobile */
+    letter-spacing: 0.05em; /* Less spacing on mobile */
+  }
+}
+
+/* Scroll Indicator - Now a direct child of hero-section-kali for proper stacking */
+.scroll-indicator {
+  position: absolute; /* Absolute so it scrolls with the hero section */
+  bottom: 3.5rem; /* Positioned higher up to be more visible above taskbar */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  animation: scrollBounce 2s ease-in-out infinite;
+  z-index: 3; /* Higher than hero-content-kali (z-index: 2) to appear above stat boxes */
+  
+  .scroll-text {
+    color: $kali-text;
+    font-family: 'Courier New', monospace;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.8;
+  }
+  
+  .scroll-arrow {
+    color: $kali-red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  @media (max-width: $mobile-breakpoint) {
+    bottom: 1.5rem;
+  }
+}
+
+@keyframes scrollBounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(10px);
+  }
+}
+
+/* Content sections after hero need padding */
+.hero-section-kali ~ * {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  
+  @media (max-width: $mobile-breakpoint) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* But override for specific sections that handle their own padding */
+.hero-section-kali ~ .search-kali,
+.hero-section-kali ~ .doc-cards-grid {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Search Bar - Kali Terminal Style */
+.search-kali {
+  max-width: 900px;
+  margin: 3rem auto 3rem; /* Add top margin for spacing after hero */
+  padding: 0 2rem; /* Add horizontal padding */
+  position: relative;
+  display: flex;
+  align-items: center;
+  background: $kali-gray;
+  border: 1px solid $kali-border;
+  border-radius: 0;
+  
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0 0.5rem; /* Minimal padding for full-screen effect */
+    margin: 2rem 0; /* Top/bottom margin only - no left/right for full-screen */
+    max-width: 100%;
+    flex-direction: row; /* Ensure horizontal layout on mobile */
+    align-items: center; /* Center items vertically */
+  }
+  
+  .search-icon-kali {
+    color: $kali-red;
+    font-family: 'Courier New', monospace;
+    font-size: 1.2rem;
+    padding: 0 1rem;
+    font-weight: bold;
+    flex-shrink: 0; /* Prevent icon from shrinking */
+    
+    @media (max-width: $mobile-breakpoint) {
+      padding: 0 0.5rem; /* Less padding on mobile */
+      font-size: 1rem; /* Smaller icon on mobile */
+    }
+  }
+  
+  #search-input {
+    flex: 1;
+    padding: 1rem 0;
+    background: transparent;
+    border: none;
+    color: $kali-text;
+    font-size: 1rem;
+    font-family: 'Courier New', monospace;
+    
+    @media (max-width: $mobile-breakpoint) {
+      padding: 0.75rem 0.5rem; /* Better padding on mobile */
+      font-size: 0.9rem; /* Slightly smaller font */
+    }
+    
+    &:focus {
+      outline: none;
+    }
+    
+    &::placeholder {
+      color: rgba(229, 231, 235, 0.3);
+      font-family: 'Courier New', monospace;
+    }
+  }
+  
+  #search-results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 1px;
+    background: $kali-gray;
+    border: 1px solid $kali-border;
+    max-height: 500px;
+    overflow-y: auto;
+    z-index: 100;
+  }
+}
+
+/* Document Cards Grid - Visual Post List with Images */
+.doc-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem;
+  margin: 2rem auto; /* Center the grid */
+  padding: 0 2rem; /* Add horizontal padding */
+  max-width: 1400px; /* Max width for better layout */
+  
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0 0.5rem; /* Small padding for card breathing room */
+    gap: 1rem; /* Smaller gap */
+    margin: 1.5rem 0; /* Top/bottom margin only - no left/right for full-screen */
+    max-width: 100%;
+  }
+}
+
+.doc-card-kali {
+  background: $kali-gray;
+  border: 1px solid $kali-border;
+  border-radius: 0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  &:hover {
+    border-color: $kali-red;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(239, 68, 68, 0.2);
+    
+    .doc-card-image img {
+      transform: scale(1.05);
+    }
+    
+    .doc-card-overlay {
+      opacity: 0.3;
+    }
+  }
+}
+
+.doc-card-image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  background: $kali-dark;
+  
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .placeholder-svg {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.doc-card-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, $kali-darker 0%, $kali-dark 100%);
+}
+
+.doc-card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(239, 68, 68, 0.3) 100%);
+  opacity: 0.5;
+  transition: opacity 0.3s ease;
+}
+
+.doc-card-content {
+  padding: 1.5rem;
+}
+
+.doc-card-meta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.8rem;
+}
+
+.doc-date-kali {
+  color: $kali-red;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.doc-category-kali {
+  color: $kali-text;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 0.25rem 0.75rem;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.doc-reading-time {
+  color: $kali-text;
+  opacity: 0.8;
+  font-family: 'Courier New', monospace;
+  font-size: 0.75rem;
+}
+
+.doc-card-tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.75rem;
+}
+
+.doc-tag-badge {
+  font-size: 0.7rem;
+  font-family: 'Courier New', monospace;
+  color: $kali-red;
+  background: transparent;
+  border: 1px solid $kali-red;
+  padding: 0.15rem 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: rgba(239, 68, 68, 0.1);
+    box-shadow: 0 0 8px rgba(239, 68, 68, 0.3);
+  }
+}
+
+.doc-card-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+  
+  a {
+    color: $white;
+    text-decoration: none;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: $kali-red;
+    }
+  }
+}
+
+.doc-card-excerpt {
+  color: $kali-text;
+  line-height: 1.6;
+  margin: 0 0 1.5rem 0;
+  font-size: 0.95rem;
+}
+
+.doc-card-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.doc-read-more {
+  color: $kali-red;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: $kali-accent;
+    transform: translateX(5px);
+  }
+}
+
+/* Responsive Kali Design */
+@media (max-width: $mobile-breakpoint) {
+  .landing-title {
+    font-size: 2.5rem;
+  }
+  
+  .hero-title-kali {
+    font-size: 2rem;
+  }
+  
+  .hero-subtitle-kali {
+    font-size: 1rem;
+  }
+  
+  .hero-stats-kali {
+    flex-direction: row; /* Keep horizontal layout on mobile */
+    gap: 0.5rem; /* Reduce gap for mobile to fit 3 boxes */
+    justify-content: center;
+  }
+  
+  .hero-stat-kali {
+    /* Sizing handled by main definition above */
+  }
+  
+  .doc-cards-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .search-kali {
+    flex-direction: column;
+    align-items: stretch;
+    
+    .search-icon-kali {
+      padding: 0.5rem 1rem;
+      text-align: left;
+    }
+    
+    #search-input {
+      padding: 0.5rem 1rem;
+    }
+  }
+  
+  /* Move scroll indicator up on mobile so it's visible above mobile UI/taskbar */
+  .scroll-indicator {
+    bottom: 7rem; /* Move up ~1.5cm (56px higher than default 3.5rem) to be visible on mobile */
+  }
+}
+
+/* Phase 2 Features - Quick Links Panel */
+.quick-links-panel {
+  background: $kali-darker;
+  border: 2px solid $kali-accent;
+  padding: 2rem;
+  margin: 3rem 0;
+  position: relative;
+  
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid $kali-accent;
+  }
+  
+  &::before {
+    top: -2px;
+    left: -2px;
+    border-right: none;
+    border-bottom: none;
+  }
+  
+  &::after {
+    bottom: -2px;
+    right: -2px;
+    border-left: none;
+    border-top: none;
+  }
+}
+
+.quick-links-title {
+  font-family: 'Courier New', monospace;
+  color: $kali-accent;
+  font-size: 1.5rem;
+  margin: 0 0 1.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  
+  @media (max-width: $mobile-breakpoint) {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+    gap: 0.5rem; /* Smaller gap */
+    padding: 0 0.5rem; /* Small padding for card breathing room */
+  }
+}
+
+.quick-link-card {
+  background: $kali-darker;
+  border: 1px solid $kali-border;
+  padding: 1.5rem;
+  text-decoration: none !important; /* Force no underlines */
+  color: $kali-text;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  /* Remove underlines from specific children */
+  .quick-link-label,
+  .quick-link-desc {
+    text-decoration: none !important;
+  }
+  
+  @media (max-width: $mobile-breakpoint) {
+    padding: 1rem; /* Less padding on mobile */
+  }
+  
+  &:hover {
+    border-color: $kali-accent;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba($kali-accent, 0.2);
+    text-decoration: none !important; /* No underline on hover */
+    
+    .quick-link-icon {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.quick-link-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  transition: transform 0.3s ease;
+  
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 1.5rem; /* Smaller icon on mobile */
+    margin-bottom: 0.35rem;
+  }
+}
+
+.quick-link-label {
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  color: $kali-accent;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.25rem;
+  text-decoration: none !important; /* No underlines */
+  
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 0.75rem; /* Smaller font on mobile */
+    letter-spacing: 0.02em; /* Less spacing on mobile */
+  }
+}
+
+.quick-link-desc {
+  font-size: 0.75rem;
+  color: $kali-text-muted;
+  font-family: 'Courier New', monospace;
+  text-decoration: none !important; /* No underlines */
+  
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 0.65rem; /* Smaller font on mobile */
+  }
+}
+
+/* Phase 2 Features - Recent Updates Section */
+.recent-updates-section {
+  background: $kali-darker;
+  border-left: 3px solid $kali-accent;
+  padding: 1.5rem;
+  margin: 2rem 0 3rem 0;
+}
+
+.recent-update-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid $kali-border;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &:hover {
+    .update-title a {
+      color: $kali-accent;
+    }
+  }
+}
+
+.update-indicator {
+  flex-shrink: 0;
+  background: $kali-accent;
+  color: $kali-black;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.65rem;
+  font-weight: bold;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.05em;
+  align-self: flex-start;
+}
+
+.update-content {
+  flex: 1;
+}
+
+.update-title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  
+  a {
+    color: $kali-text;
+    text-decoration: none;
+    font-family: 'Courier New', monospace;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: $kali-accent;
+    }
+  }
+}
+
+.update-meta {
+  display: flex;
+  gap: 1rem;
+  font-size: 0.75rem;
+  font-family: 'Courier New', monospace;
+  color: $kali-text-muted;
+}
+
+.update-date {
+  color: $kali-text-muted;
+}
+
+.update-category {
+  color: $kali-accent;
+  font-weight: bold;
+}
+
+/* Home Page Reorganization Styles */
+.home-content-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  
+  @media (max-width: $mobile-breakpoint) {
+    padding: 0; /* No padding for full-screen effect like PC */
+    max-width: 100%;
+    margin: 0; /* Remove auto margins for full-screen */
+  }
+}
+
+.quick-links-section,
+.security-reports-section,
+.recent-updates-section-wrapper {
+  margin: 4rem 0;
+  
+  @media (max-width: $mobile-breakpoint) {
+    margin: 2rem 0; /* Less spacing on mobile */
+    padding: 0; /* Ensure no side padding */
+  }
+}
+
+.section-title-kali {
+  font-family: 'Courier New', monospace;
+  color: $kali-red;
+  font-size: 1.8rem;
+  margin: 0 0 2rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding-bottom: 0.75rem;
+  position: relative;
+  
+  @media (max-width: $mobile-breakpoint) {
+    font-size: 1.3rem; /* Smaller on mobile */
+    margin-bottom: 1.5rem;
+    padding-left: 0.5rem; /* Small padding for readability */
+    padding-right: 0.5rem;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100px;
+    height: 2px;
+    background: $kali-red;
+    
+    @media (max-width: $mobile-breakpoint) {
+      left: 0.5rem; /* Match padding */
+    }
+  }
+}
+
+.recent-updates-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.view-all-link {
+  text-align: center;
+  margin-top: 2rem;
+}
+
+.btn-view-all {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  background: $kali-darker;
+  border: 2px solid $kali-red;
+  color: $kali-red;
+  text-decoration: none;
+  font-family: 'Courier New', monospace;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background: $kali-red;
+    color: $kali-dark;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba($kali-red, 0.3);
+  }
+}
+
+.home-footer-section {
+  margin-top: 5rem;
+  padding: 3rem 2rem;
+  background: $kali-darker;
+  border-top: 2px solid $kali-border;
+}
+
+.footer-links-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.footer-link-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem;
+  background: $kali-dark;
+  border: 1px solid $kali-border;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    border-color: $kali-link;
+    transform: translateY(-2px);
+    
+    a {
+      color: $kali-link;
+    }
+  }
+  
+  a {
+    color: $kali-text;
+    text-decoration: none;
+    font-family: 'Courier New', monospace;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+}
+
+.footer-link-icon {
+  font-size: 1.5rem;
+}
+
+.home-disclaimer {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Search filters integrated styling */
+.search-kali {
+  position: relative;
+  
+  #search-filters {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: $kali-darker;
+    border: 1px solid $kali-border;
+    border-radius: 4px;
+    display: none;
+    
+    &.active {
+      display: block;
+    }
+  }
+}
+
+/* Performance Optimizations - Remove any heavy operations */
+* {
+  will-change: auto !important;
+}
+
+/* Disable smooth scrolling on low-end devices */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .landing-splash {
+    animation: none !important;
+  }
+}
+
+/* ========================================
+   Phase 3 Features: Search Filters, Command Palette, Related Documents
+   ======================================== */
+
+/* Search Filters */
+.search-filters {
+  display: flex;
+  gap: 1.5rem;
+  margin: 1.5rem 0;
+  padding: 1rem 2rem;
+  background: $kali-bg-secondary;
+  border: 1px solid $kali-accent;
+  border-radius: 0;
+  font-family: 'Courier New', monospace;
+}
+
+.search-filter-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
+  
+  label {
+    font-size: 0.75rem;
+    color: $kali-accent;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+
+.search-filter-select {
+  background: $kali-bg-primary;
+  color: $kali-text;
+  border: 1px solid $kali-accent;
+  border-radius: 0;
+  padding: 0.5rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  
+  &:hover, &:focus {
+    border-color: lighten($kali-accent, 10%);
+    box-shadow: 0 0 10px rgba($kali-accent, 0.3);
+    outline: none;
+  }
+  
+  option {
+    background: $kali-bg-primary;
+    color: $kali-text;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-filters {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+/* Command Palette */
+.command-palette {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.85);
+  z-index: 10000;
+  backdrop-filter: blur(5px);
+  padding: 2rem;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 15vh;
+  
+  &.active {
+    display: flex;
+  }
+}
+
+.command-palette-content {
+  width: 100%;
+  max-width: 600px;
+  background: $kali-bg-secondary;
+  border: 2px solid $kali-accent;
+  box-shadow: 0 20px 60px rgba($kali-accent, 0.3);
+}
+
+.command-palette-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid $kali-accent;
+}
+
+.command-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: $kali-text;
+  font-family: 'Courier New', monospace;
+  font-size: 1rem;
+  outline: none;
+  
+  &::placeholder {
+    color: $kali-text-muted;
+  }
+}
+
+.command-shortcut {
+  font-size: 0.75rem;
+  color: $kali-text-muted;
+  font-family: 'Courier New', monospace;
+  padding: 0.25rem 0.5rem;
+  border: 1px solid $kali-text-muted;
+}
+
+.command-results {
+  max-height: 400px;
+  overflow-y: auto;
+  
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: $kali-bg-primary;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $kali-accent;
+    border-radius: 0;
+  }
+}
+
+.command-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid rgba($kali-accent, 0.1);
+  font-family: 'Courier New', monospace;
+  transition: all 0.2s ease;
+  
+  &:hover, &.selected {
+    background: rgba($kali-accent, 0.1);
+    border-left: 3px solid $kali-accent;
+  }
+}
+
+.command-icon {
+  font-size: 1.2rem;
+}
+
+.command-title {
+  flex: 1;
+  color: $kali-text;
+  font-size: 0.9rem;
+}
+
+.command-category {
+  font-size: 0.75rem;
+  color: $kali-text-muted;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid $kali-text-muted;
+}
+
+.command-no-results {
+  padding: 2rem;
+  text-align: center;
+  color: $kali-text-muted;
+  font-family: 'Courier New', monospace;
+}
+
+/* Related Documents */
+.related-documents {
+  margin: 3rem 0;
+  padding: 2rem;
+  background: $kali-bg-secondary;
+  border: 1px solid $kali-accent;
+  
+  h3 {
+    font-family: 'Courier New', monospace;
+    color: $kali-accent;
+    text-transform: uppercase;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid $kali-accent;
+    padding-bottom: 0.5rem;
+  }
+}
+
+.related-docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.related-doc-card {
+  background: $kali-bg-primary;
+  border: 1px solid rgba($kali-accent, 0.3);
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  
+  &:hover {
+    border-color: $kali-accent;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba($kali-accent, 0.2);
+    
+    .related-doc-link h4 {
+      color: $kali-accent;
+    }
+  }
+  
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid rgba($kali-accent, 0.3);
+    transition: all 0.3s ease;
+  }
+  
+  &::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+  }
+  
+  &::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+  }
+  
+  &:hover::before, &:hover::after {
+    border-color: $kali-accent;
+    width: 15px;
+    height: 15px;
+  }
+}
+
+.related-doc-link {
+  text-decoration: none;
+  
+  h4 {
+    font-family: 'Courier New', monospace;
+    color: $kali-text;
+    font-size: 1rem;
+    margin-bottom: 0.75rem;
+    transition: color 0.3s ease;
+  }
+}
+
+.related-doc-excerpt {
+  color: $kali-text-muted;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin-bottom: 0.75rem;
+  font-family: 'Courier New', monospace;
+}
+
+.related-doc-category {
+  display: inline-block;
+  font-size: 0.7rem;
+  color: $kali-accent;
+  border: 1px solid $kali-accent;
+  padding: 0.2rem 0.5rem;
+  font-family: 'Courier New', monospace;
+  text-transform: uppercase;
+}
+
+@media (max-width: 768px) {
+  .related-docs-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ====================================
+   Phase 4: Print/PDF Export Styles
+   ==================================== */
+
+@media print {
+  /* Hide unnecessary elements for PDF */
+  .nav-container,
+  .sidebar-toc,
+  .report-actions,
+  .social-sharing,
+  .related-documents,
+  .related-posts,
+  .post-footer,
+  .back-to-top,
+  #command-palette,
+  .scroll-indicator,
+  .hero-section-kali,
+  .search-container-kali,
+  .quick-links-panel,
+  .recent-updates-section {
+    display: none !important;
+  }
+  
+  /* Optimize content for print */
+  body {
+    background: white;
+    color: black;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+  
+  .post {
+    max-width: 100%;
+    margin: 0;
+    padding: 1cm;
+  }
+  
+  .post-header-section {
+    margin-bottom: 2rem;
+  }
+  
+  .post-title {
+    color: black;
+    font-size: 24pt;
+    margin-bottom: 1rem;
+  }
+  
+  .report-metadata {
+    color: #333;
+    font-size: 10pt;
+    margin-bottom: 1.5rem;
+  }
+  
+  .post-content-wrapper {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .post-content {
+    color: black;
+    
+    h1, h2, h3, h4, h5, h6 {
+      color: black;
+      page-break-after: avoid;
+    }
+    
+    h2 {
+      font-size: 18pt;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+    }
+    
+    h3 {
+      font-size: 14pt;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    p, ul, ol {
+      page-break-inside: avoid;
+    }
+    
+    code {
+      background: #f0f0f0;
+      border: 1px solid #ddd;
+      padding: 0.1em 0.3em;
+      font-size: 10pt;
+    }
+    
+    pre {
+      background: #f5f5f5;
+      border: 1px solid #ddd;
+      padding: 1em;
+      overflow: visible;
+      page-break-inside: avoid;
+      
+      code {
+        background: none;
+        border: none;
+        padding: 0;
+      }
+    }
+    
+    img {
+      max-width: 100%;
+      page-break-inside: avoid;
+    }
+    
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      page-break-inside: avoid;
+      
+      th, td {
+        border: 1px solid #ddd;
+        padding: 0.5em;
+        text-align: left;
+      }
+      
+      th {
+        background: #f0f0f0;
+        font-weight: bold;
+      }
+    }
+  }
+  
+  /* Add page numbers */
+  @page {
+    margin: 2cm;
+    
+    @bottom-right {
+      content: counter(page);
+    }
+  }
+}
+
+/* ====================================
+   Phase 4: View Counter Styles
+   ==================================== */
+
+.stat-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.5rem;
+  background: rgba($kali-accent, 0.05);
+  border: 1px solid rgba($kali-accent, 0.2);
+  border-radius: 0;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  
+  .stat-label {
+    color: $kali-text-muted;
+    font-weight: 600;
+  }
+  
+  .stat-value {
+    color: $kali-accent;
+    font-weight: 700;
+  }
+}
+
+/* ====================================
+   Phase 4: Offline Mode Indicator
+   ==================================== */
+
+.offline-indicator {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: rgba($kali-dark, 0.95);
+  border: 1px solid $kali-accent;
+  padding: 0.75rem 1rem;
+  font-family: 'Courier New', monospace;
+  font-size: 0.875rem;
+  color: $kali-accent;
+  z-index: 1000;
+  display: none;
+  
+  &.show {
+    display: block;
+  }
+  
+  &::before {
+    content: '[OFFLINE MODE]';
+    margin-right: 0.5rem;
+    color: $kali-accent;
+  }
+}
+
+/* ====================================
+   Author Link Styles
+   ==================================== */
+.author-link {
+  color: #ef4444;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    color: #ff5555;
+    text-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+  }
+}
+
+/* ====================================
+   Mobile Phone Integration Enhancements
+   ==================================== */
+
+/* Mobile Menu Toggle Button (Hamburger) */
+.mobile-menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  z-index: 1001;
+  position: relative;
+  
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.hamburger-line {
+  width: 28px;
+  height: 3px;
+  background-color: $gray-300;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(1) {
+  transform: translateY(9px) rotate(45deg);
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-toggle.active .hamburger-line:nth-child(3) {
+  transform: translateY(-9px) rotate(-45deg);
+}
+
+/* Mobile Navigation Enhancements */
+@media (max-width: 768px) {
+  .nav-bar-content {
+    position: relative;
+  }
+  
+  /* Show nav-buttons as slide-in menu on mobile */
+  .nav-buttons {
+    display: flex !important; /* Override the display: none from earlier */
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 280px;
+    max-width: 80vw; /* Ensure menu doesn't exceed viewport */
+    height: 100vh;
+    background: rgba(31, 41, 55, 0.98);
+    backdrop-filter: blur(10px);
+    flex-direction: column;
+    padding: 80px 20px 20px;
+    gap: 1rem;
+    box-shadow: -4px 0 20px rgba(0, 0, 0, 0.5);
+    transition: right 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  
+  .nav-buttons.active {
+    right: 0;
+  }
+  
+  .nav-btn {
+    width: 100%;
+    text-align: left;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+  
+  /* Prevent body scroll when mobile menu is open */
+  body.mobile-menu-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+  }
+  
+  /* Overlay for mobile menu */
+  body.mobile-menu-open::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 999;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+}
+
+/* Touch-Friendly Interaction Enhancements */
+@media (max-width: 768px) {
+  /* Larger tap targets for mobile */
+  button, a.nav-btn, .nav-btn, .share-btn, .report-action-btn {
+    min-height: 44px; /* Apple's recommended minimum tap target */
+    min-width: 44px;
+  }
+  
+  /* Better spacing for touch interactions */
+  .share-buttons {
+    gap: 12px;
+  }
+  
+  .report-actions {
+    gap: 10px;
+  }
+  
+  /* Prevent double-tap zoom on interactive elements */
+  button, a, .nav-btn, .share-btn, .report-action-btn {
+    touch-action: manipulation;
+  }
+  
+  /* Larger back-to-top button for mobile */
+  #back-to-top {
+    width: 56px;
+    height: 56px;
+    font-size: 24px;
+    bottom: 20px;
+    right: 20px;
+  }
+  
+  /* Optimize code blocks for mobile */
+  pre, code {
+    font-size: 14px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Better table handling on mobile */
+  table {
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Optimize images for mobile */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  /* Better form inputs for mobile */
+  input, textarea, select {
+    font-size: 16px; /* Prevents zoom on iOS */
+    min-height: 44px;
+  }
+  
+  /* Optimize search for mobile */
+  #search-input {
+    font-size: 16px;
+    padding: 12px 16px;
+  }
+  
+  /* Comprehensive width constraints to prevent horizontal overflow */
+  * {
+    max-width: 100%;
+  }
+  
+  /* Ensure all containers respect viewport width */
+  .container, .wrapper, .content, .post, .page,
+  .hero-section, .post-layout, .post-content-wrapper,
+  .sidebar-toc, article, section {
+    max-width: 100% !important;
+    overflow-x: hidden;
+  }
+  
+  /* Fix wide elements */
+  pre, code, .code-block {
+    max-width: 100%;
+    overflow-x: auto;
+    word-wrap: break-word;
+  }
+  
+  /* Allow wrapping in pre elements on mobile but keep horizontal scroll as fallback */
+  pre {
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
+  }
+  
+  /* Responsive tables */
+  table {
+    max-width: 100%;
+  }
+}
+
+/* Progressive Web App specific styles */
+@media all and (display-mode: standalone) {
+  /* When running as a PWA */
+  .top-nav-bar {
+    padding-top: env(safe-area-inset-top);
+  }
+  
+  body {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+  
+  /* Hide browser-specific UI when in PWA mode */
+  .install-prompt {
+    display: none;
+  }
+}
+
+/* iOS Safari specific fixes */
+@supports (-webkit-touch-callout: none) {
+  /* iOS-specific CSS */
+  body {
+    /* Prevent rubber-band scrolling - use overscroll-behavior instead of fixed positioning */
+    overscroll-behavior-y: none;
+  }
+  
+  .main-content {
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* Fix for iOS safe areas */
+  .top-nav-bar {
+    padding-top: max(0.4rem, env(safe-area-inset-top));
+  }
+  
+  #back-to-top {
+    bottom: max(20px, env(safe-area-inset-bottom));
+    right: max(20px, env(safe-area-inset-right));
+  }
+}
+
+/* Landscape orientation optimizations */
+@media (max-width: 768px) and (orientation: landscape) {
+  .hero-section {
+    padding: 2rem 1rem;
+  }
+  
+  .nav-buttons.active {
+    width: 240px;
+  }
+  
+  #back-to-top {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+  }
+}
+
+/* High pixel density screens (Retina) */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  /* Optimize for high-DPI displays */
+  body {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+/* Reduced motion for accessibility and battery saving */
+@media (prefers-reduced-motion: reduce) {
+  .nav-buttons,
+  .mobile-menu-toggle .hamburger-line,
+  .nav-btn,
+  #back-to-top {
+    transition: none;
+  }
+}
+
+/* Dark mode optimizations (already dark, but ensure consistency) */
+@media (prefers-color-scheme: dark) {
+  /* Ensure dark mode is consistent */
+  body {
+    color-scheme: dark;
+  }
+}
+
+/* Print styles for mobile */
+@media print {
+  .mobile-menu-toggle,
+  .nav-buttons,
+  #back-to-top,
+  .offline-indicator {
+    display: none !important;
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "Void Blog - Network Analysis, Hacking & GFW Bypass",
+  "short_name": "Void Blog",
+  "description": "Your ultimate resource for network analysis, ethical hacking, and bypassing internet restrictions.",
+  "start_url": "/Void-Blog/",
+  "scope": "/Void-Blog/",
+  "display": "standalone",
+  "background_color": "#111827",
+  "theme_color": "#1f2937",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/Void-Blog/assets/icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": [
+    "education",
+    "productivity",
+    "security"
+  ],
+  "lang": "en-US",
+  "dir": "ltr"
+}

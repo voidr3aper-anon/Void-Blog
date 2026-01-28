@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Background -->
+  <rect width="512" height="512" fill="#1f2937"/>
+  
+  <!-- Shield outline -->
+  <path d="M256 64L128 128v128c0 88 56 168 128 208 72-40 128-120 128-208V128L256 64z" 
+        fill="none" stroke="#3b82f6" stroke-width="16"/>
+  
+  <!-- Binary code pattern -->
+  <g fill="#3b82f6" opacity="0.6" font-family="monospace" font-size="24">
+    <text x="160" y="200">1010</text>
+    <text x="160" y="240">0101</text>
+    <text x="160" y="280">1100</text>
+  </g>
+  
+  <!-- Network nodes -->
+  <circle cx="256" cy="220" r="12" fill="#3b82f6"/>
+  <circle cx="200" cy="260" r="8" fill="#3b82f6"/>
+  <circle cx="312" cy="260" r="8" fill="#3b82f6"/>
+  <circle cx="256" cy="300" r="8" fill="#3b82f6"/>
+  
+  <!-- Network lines -->
+  <line x1="256" y1="220" x2="200" y2="260" stroke="#3b82f6" stroke-width="2"/>
+  <line x1="256" y1="220" x2="312" y2="260" stroke="#3b82f6" stroke-width="2"/>
+  <line x1="256" y1="220" x2="256" y2="300" stroke="#3b82f6" stroke-width="2"/>
+  
+  <!-- Letter V -->
+  <text x="220" y="380" fill="#3b82f6" font-family="Arial, sans-serif" font-size="120" font-weight="bold">V</text>
+</svg>
