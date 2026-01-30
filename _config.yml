@@ -26,7 +26,7 @@ header_pages:
   - resources.md
   - archive.md
 
-# Images in _posts are copied by custom plugin (see _plugins/copy_post_images.rb)
+# Images are in assets directory, which is automatically included by Jekyll
 
 # Exclude from processing
 exclude:
