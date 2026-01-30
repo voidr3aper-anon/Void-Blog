@@ -7,7 +7,7 @@ author: "VoidReaper"
 author_link: "https://github.com/voidr3aper-anon"
 categories: [Category Name]
 tags: [tag1, tag2, tag3, tag4]
-image: "/assets/posts/category-name/post-slug/images/featured-image.png"
+image: "/category-name/post-slug/images/featured-image.png"
 excerpt: "A compelling 1-2 sentence description of your post that appears in search results and social shares."
 ---
 
