@@ -31,7 +31,7 @@ Select an existing category or create a new one if your content doesn't fit exis
 Create a directory for your post with a descriptive slug:
 
 ```bash
-mkdir -p assets/posts/category-name/your-post-slug/images
+mkdir -p _posts/category-name/your-post-slug/images
 ```
 
 **Slug naming conventions:**
@@ -40,9 +40,9 @@ mkdir -p assets/posts/category-name/your-post-slug/images
 - Be descriptive but concise
 - Example: `advanced-wireshark-analysis`, `vpn-setup-guide`
 
-### Step 3: Create index.md
+### Step 3: Create Your Post File
 
-Create `index.md` in your post directory using this template:
+Create `YYYY-MM-DD-your-post-slug.md` in your post directory using this template:
 
 ```yaml
 ---
@@ -54,7 +54,7 @@ author: "Your Name"
 author_link: "https://github.com/yourusername"
 categories: [Category Name]
 tags: [tag1, tag2, tag3]
-image: "assets/posts/category-name/post-slug/images/featured-image.png"
+image: "/category-name/post-slug/images/featured-image.png"
 excerpt: "A compelling 1-2 sentence description"
 ---
 
@@ -71,19 +71,20 @@ excerpt: "A compelling 1-2 sentence description"
 - `author_link`: Link to your GitHub, website, or social profile
 - `categories`: Single category in square brackets (e.g., `[Network Monitoring]`)
 - `tags`: Array of relevant tags (e.g., `[wireshark, packet-analysis, networking]`)
-- `image`: Path to featured image from site root (e.g., `assets/posts/category-name/post-slug/images/featured.png`)
+- `image`: Path to featured image from category root (e.g., `/category-name/post-slug/images/featured.png`)
 - `excerpt`: Brief description for SEO and social sharing (150-160 characters max)
 
 ### Step 4: Add Images
 
-Place all images in your post's `images/` directory under `assets/posts/`:
+Place all images in your post's `images/` directory under `_posts/`:
 
 ```
-assets/posts/category-name/your-post-slug/images/
-├── featured-image.png      # Main featured image
-├── screenshot-1.png         # Content images
-├── diagram-network.png      # Diagrams and illustrations
-└── README.md               # Auto-generated
+_posts/category-name/your-post-slug/
+├── YYYY-MM-DD-your-post-slug.md  # Your post file
+└── images/
+    ├── featured-image.png         # Main featured image
+    ├── screenshot-1.png           # Content images
+    └── diagram-network.png        # Diagrams and illustrations
 ```
 
 **Image Guidelines:**
@@ -98,7 +99,7 @@ assets/posts/category-name/your-post-slug/images/
 **Reference images in your post:**
 
 ```markdown
-![Alt text describing the image]({{ '/assets/posts/category-name/post-slug/images/your-image.png' | relative_url }})
+![Alt text describing the image]({{ '/category-name/post-slug/images/your-image.png' | relative_url }})
 ```
 
 ### Step 5: Write Quality Content
