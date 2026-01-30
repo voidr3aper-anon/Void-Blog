@@ -26,9 +26,7 @@ header_pages:
   - resources.md
   - archive.md
 
-# Include image directories from posts - Jekyll needs this to copy static files from _posts
-include:
-  - _posts/**/images
+# Images in _posts are copied by custom plugin (see _plugins/copy_post_images.rb)
 
 # Exclude from processing
 exclude:
