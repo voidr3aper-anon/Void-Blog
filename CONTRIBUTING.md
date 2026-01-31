@@ -26,11 +26,30 @@ Select an existing category or create a new one if your content doesn't fit exis
 - `gfw-bypass` - Great Firewall bypass methods
 - `network-analysis` - Protocol analysis and packet inspection
 
-### Step 2: Create Post Directory
+### Step 2: Create Post Directory and Add Images
 
-Create a directory for your post with a descriptive slug:
+You have two options for organizing your post and images:
+
+**Option A: Keep Images with Post (Recommended - Easier to Manage)**
 
 ```bash
+# Create post directory
+mkdir -p _posts/category-name/your-post-slug/images
+
+# Add your post markdown file
+# _posts/category-name/your-post-slug/YYYY-MM-DD-your-post-slug.md
+
+# Add your images
+# _posts/category-name/your-post-slug/images/featured-image.png
+# _posts/category-name/your-post-slug/images/screenshot-1.png
+```
+
+**How it works:** When you push to GitHub, the workflow automatically copies images from `_posts` to `assets/posts`, maintaining the same directory structure. You don't need to do anything manually!
+
+**Option B: Add Images Directly to Assets**
+
+```bash
+# If you prefer, you can still add images directly to assets
 mkdir -p assets/posts/category-name/your-post-slug/images
 ```
 
@@ -76,14 +95,29 @@ excerpt: "A compelling 1-2 sentence description"
 
 ### Step 4: Add Images
 
-Place all images in your post's `images/` directory under `assets/posts/`:
+**Where to Put Images:**
 
-```
-assets/posts/category-name/your-post-slug/images/
-├── featured-image.png         # Main featured image
-├── screenshot-1.png           # Content images
-└── diagram-network.png        # Diagrams and illustrations
-```
+You can place images in **either** location (the workflow handles both):
+
+1. **With your post** (recommended for easier management):
+   ```
+   _posts/category-name/your-post-slug/
+   ├── YYYY-MM-DD-your-post-slug.md
+   └── images/
+       ├── featured-image.png
+       ├── screenshot-1.png
+       └── diagram-network.png
+   ```
+
+2. **Directly in assets**:
+   ```
+   assets/posts/category-name/your-post-slug/images/
+   ├── featured-image.png
+   ├── screenshot-1.png
+   └── diagram-network.png
+   ```
+
+**📝 Important:** Your post markdown always references images as `/assets/posts/...` regardless of where you store them. The GitHub Actions workflow automatically copies images from `_posts` to `assets/posts` during build.
 
 **Image Guidelines:**
 - Use descriptive filenames: `wireshark-capture-window.png`, not `img1.png`
