@@ -128,6 +128,22 @@
     localStorage.setItem('preferred-language', lang);
   }
 
+  // Filter posts by language on the home page
+  function filterPostsByLanguage(lang) {
+    // Find all post cards and update items with language attribute
+    const postCards = document.querySelectorAll('[data-post-lang]');
+    
+    postCards.forEach(card => {
+      const postLang = card.dataset.postLang || 'en';
+      
+      if (postLang === lang) {
+        card.style.display = ''; // Show posts matching current language
+      } else {
+        card.style.display = 'none'; // Hide posts not matching
+      }
+    });
+  }
+
   // Apply translations to the page
   function applyTranslations(lang) {
     const t = translations[lang];
@@ -138,6 +154,9 @@
     // Update HTML dir attribute for RTL support
     document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
     document.body.dir = lang === 'fa' ? 'rtl' : 'ltr';
+    
+    // Filter posts by language on home page
+    filterPostsByLanguage(lang);
     
     // Navigation links - store original text in data attribute if not present
     document.querySelectorAll('.nav-btn').forEach(btn => {
@@ -254,13 +273,55 @@
     if (scrollText) scrollText.textContent = t.buttons.scroll_down;
   }
 
+  // Check if we're on a post page and find alternate language version
+  function getAlternateLanguageUrl(currentLang, newLang) {
+    const currentPath = window.location.pathname;
+    
+    // Check if we're on a post page (contains specific patterns)
+    if (!currentPath.includes('/network-monitoring/') && 
+        !currentPath.includes('/hacking/') && 
+        !currentPath.includes('/gfw-bypass/') &&
+        !currentPath.includes('/security/') &&
+        !currentPath.includes('/tools/')) {
+      return null; // Not on a post page
+    }
+    
+    // Try to find alternate version by swapping -fa suffix
+    let alternatePath;
+    if (newLang === 'fa') {
+      // Switching to Persian: add -fa before the trailing slash or end
+      if (currentPath.endsWith('/')) {
+        alternatePath = currentPath.slice(0, -1) + '-fa/';
+      } else {
+        alternatePath = currentPath + '-fa/';
+      }
+    } else {
+      // Switching to English: remove -fa
+      alternatePath = currentPath.replace(/-fa\/?$/, '/');
+    }
+    
+    return alternatePath;
+  }
+
   // Toggle language
   function toggleLanguage() {
     const currentLang = getCurrentLanguage();
     const newLang = currentLang === 'en' ? 'fa' : 'en';
-    setLanguage(newLang);
-    applyTranslations(newLang);
-    updateLanguageButton(newLang);
+    
+    // Check if we need to navigate to a different page
+    const alternatePath = getAlternateLanguageUrl(currentLang, newLang);
+    
+    if (alternatePath && alternatePath !== window.location.pathname) {
+      // We're on a post and an alternate version exists
+      // Save language preference and navigate
+      setLanguage(newLang);
+      window.location.href = alternatePath;
+    } else {
+      // Just switch UI language on current page
+      setLanguage(newLang);
+      applyTranslations(newLang);
+      updateLanguageButton(newLang);
+    }
   }
 
   // Update language button text
@@ -272,9 +333,36 @@
     }
   }
 
+  // Detect page language from URL or meta tags
+  function detectPageLanguage() {
+    // Check if URL ends with -fa (Persian version)
+    const currentPath = window.location.pathname;
+    if (currentPath.includes('-fa/') || currentPath.endsWith('-fa')) {
+      return 'fa';
+    }
+    
+    // Check meta tags or HTML lang attribute
+    const htmlLang = document.documentElement.lang;
+    if (htmlLang && htmlLang.startsWith('fa')) {
+      return 'fa';
+    }
+    
+    // Default to stored preference or English
+    return getCurrentLanguage();
+  }
+
   // Initialize language switcher
   function init() {
-    const currentLang = getCurrentLanguage();
+    // Detect language from page context first
+    const detectedLang = detectPageLanguage();
+    
+    // If detected language differs from stored, update stored preference
+    const storedLang = getCurrentLanguage();
+    if (detectedLang !== storedLang) {
+      setLanguage(detectedLang);
+    }
+    
+    const currentLang = detectedLang;
     
     // Apply translations on page load
     applyTranslations(currentLang);
