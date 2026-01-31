@@ -277,28 +277,42 @@
   function getAlternateLanguageUrl(currentLang, newLang) {
     const currentPath = window.location.pathname;
     
-    // Check if we're on a post page (contains specific patterns)
-    if (!currentPath.includes('/network-monitoring/') && 
-        !currentPath.includes('/hacking/') && 
-        !currentPath.includes('/gfw-bypass/') &&
-        !currentPath.includes('/security/') &&
-        !currentPath.includes('/tools/')) {
-      return null; // Not on a post page
+    // More flexible check - if URL has multiple path segments, likely a post
+    const pathSegments = currentPath.split('/').filter(s => s.length > 0);
+    
+    // If we have at least 2 segments (e.g., /category/post-name/), it's likely a post
+    // But exclude common pages like /about/, /archive/, etc.
+    const commonPages = ['about', 'tools', 'resources', 'archive'];
+    const isCommonPage = pathSegments.length === 1 || 
+                        (pathSegments.length === 2 && commonPages.includes(pathSegments[pathSegments.length - 1]));
+    
+    if (isCommonPage) {
+      return null; // Not a post page, just a regular page
     }
     
     // Try to find alternate version by swapping -fa suffix
     let alternatePath;
     if (newLang === 'fa') {
       // Switching to Persian: add -fa before the trailing slash or end
+      // Handle both /path/ and /path formats
       if (currentPath.endsWith('/')) {
         alternatePath = currentPath.slice(0, -1) + '-fa/';
       } else {
         alternatePath = currentPath + '-fa/';
       }
     } else {
-      // Switching to English: remove -fa
+      // Switching to English: remove -fa (and optional trailing slash)
+      // More robust pattern to handle -fa at end of path
       alternatePath = currentPath.replace(/-fa\/?$/, '/');
     }
+    
+    console.log('Language switch:', {
+      currentPath,
+      currentLang,
+      newLang,
+      alternatePath,
+      willRedirect: alternatePath !== currentPath
+    });
     
     return alternatePath;
   }
@@ -311,13 +325,23 @@
     // Check if we need to navigate to a different page
     const alternatePath = getAlternateLanguageUrl(currentLang, newLang);
     
+    console.log('Toggle language:', {
+      currentLang,
+      newLang,
+      currentPath: window.location.pathname,
+      alternatePath,
+      shouldRedirect: alternatePath && alternatePath !== window.location.pathname
+    });
+    
     if (alternatePath && alternatePath !== window.location.pathname) {
       // We're on a post and an alternate version exists
       // Save language preference and navigate
       setLanguage(newLang);
+      console.log('Redirecting to:', alternatePath);
       window.location.href = alternatePath;
     } else {
       // Just switch UI language on current page
+      console.log('Switching UI only');
       setLanguage(newLang);
       applyTranslations(newLang);
       updateLanguageButton(newLang);
