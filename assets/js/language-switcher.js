@@ -139,27 +139,29 @@
     document.documentElement.dir = lang === 'fa' ? 'rtl' : 'ltr';
     document.body.dir = lang === 'fa' ? 'rtl' : 'ltr';
     
-    // Navigation links
-    const navLinks = {
-      'Home': t.nav.home,
-      'About': t.nav.about,
-      'Tools': t.nav.tools,
-      'Resources': t.nav.resources,
-      'Archive': t.nav.archive,
-      'GitHub': t.nav.github
-    };
-    
+    // Navigation links - store original text in data attribute if not present
     document.querySelectorAll('.nav-btn').forEach(btn => {
-      const originalText = btn.textContent.trim();
+      // Skip the language toggle button
+      if (btn.id === 'language-toggle') return;
+      
+      // Store original English text on first run
+      if (!btn.dataset.originalText) {
+        btn.dataset.originalText = btn.textContent.trim();
+      }
+      
+      const originalText = btn.dataset.originalText;
+      const navLinks = {
+        'Home': t.nav.home,
+        'About': t.nav.about,
+        'Tools': t.nav.tools,
+        'Resources': t.nav.resources,
+        'Archive': t.nav.archive,
+        'GitHub': t.nav.github
+      };
+      
       if (navLinks[originalText]) {
         btn.textContent = navLinks[originalText];
       }
-      // Try reverse lookup if switching from Persian to English
-      Object.keys(navLinks).forEach(key => {
-        if (navLinks[key] === originalText) {
-          btn.textContent = lang === 'en' ? key : navLinks[key];
-        }
-      });
     });
     
     // Hero section
@@ -170,8 +172,10 @@
     if (heroSubtitle) heroSubtitle.textContent = t.hero.subtitle;
     
     // Hero stats
-    document.querySelectorAll('.stat-label-kali').forEach((label, index) => {
-      const labels = [t.hero.tools, t.hero.tutorials, t.hero.reports];
+    // Note: Uses array indices for mapping. If DOM order changes, update indices accordingly.
+    const statLabels = document.querySelectorAll('.stat-label-kali');
+    const labels = [t.hero.tools, t.hero.tutorials, t.hero.reports];
+    statLabels.forEach((label, index) => {
       if (labels[index]) label.textContent = labels[index];
     });
     
@@ -180,23 +184,25 @@
     if (searchInput) searchInput.placeholder = t.search.placeholder;
     
     // Section titles
+    // Note: Uses array indices. Titles appear in this order: Quick Start, Latest Reports, Recently Updated
     const sectionTitles = document.querySelectorAll('.section-title-kali');
+    const sectionTexts = [t.sections.quick_start, t.sections.latest_reports, t.sections.recently_updated];
     sectionTitles.forEach((title, index) => {
-      const sectionTexts = [t.sections.quick_start, t.sections.latest_reports, t.sections.recently_updated];
       if (sectionTexts[index]) title.textContent = sectionTexts[index];
     });
     
     // Quick links
+    // Note: Uses array indices. Links appear in order: VPN, Network Analysis, Tutorials, Security Testing
     const quickLinkLabels = document.querySelectorAll('.quick-link-label');
+    const linkLabels = [t.quick_links.vpn_tools, t.quick_links.network_analysis, t.quick_links.tutorials, t.quick_links.security_testing];
     quickLinkLabels.forEach((label, index) => {
-      const labels = [t.quick_links.vpn_tools, t.quick_links.network_analysis, t.quick_links.tutorials, t.quick_links.security_testing];
-      if (labels[index]) label.textContent = labels[index];
+      if (linkLabels[index]) label.textContent = linkLabels[index];
     });
     
     const quickLinkDescs = document.querySelectorAll('.quick-link-desc');
+    const linkDescs = [t.quick_links.vpn_desc, t.quick_links.network_desc, t.quick_links.tutorials_desc, t.quick_links.security_desc];
     quickLinkDescs.forEach((desc, index) => {
-      const descs = [t.quick_links.vpn_desc, t.quick_links.network_desc, t.quick_links.tutorials_desc, t.quick_links.security_desc];
-      if (descs[index]) desc.textContent = descs[index];
+      if (linkDescs[index]) desc.textContent = linkDescs[index];
     });
     
     // Document cards - reading time
@@ -232,10 +238,11 @@
     }
     
     // Footer links
+    // Note: Uses array indices. Links appear in order: Tools & Resources, Tutorials, Archive, About
     const footerLinks = document.querySelectorAll('.footer-link-item a');
+    const footerLinkTexts = [t.footer.tools_resources, t.footer.tutorials, t.footer.archive, t.footer.about];
     footerLinks.forEach((link, index) => {
-      const links = [t.footer.tools_resources, t.footer.tutorials, t.footer.archive, t.footer.about];
-      if (links[index]) link.textContent = links[index];
+      if (footerLinkTexts[index]) link.textContent = footerLinkTexts[index];
     });
     
     // Offline indicator

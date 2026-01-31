@@ -4595,16 +4595,10 @@ h3:hover .section-anchor {
 }
 
 /* Arrows and Icons RTL */
+/* In RTL mode, arrows should point left instead of right */
 [dir="rtl"] .doc-read-more::after,
 [dir="rtl"] .btn-view-all::after {
   content: " ←";
-}
-
-[dir="rtl"] .doc-read-more,
-[dir="rtl"] .btn-view-all {
-  &::after {
-    content: none;
-  }
 }
 
 /* Mobile Menu RTL */
