@@ -4668,5 +4668,67 @@ h3:hover .section-anchor {
 [dir="rtl"] .toc-item.active a {
   border-left: none;
   border-right: 2px solid $kali-red;
+  padding-left: 0.4rem;
+  padding-right: 0.75rem;
+}
+
+/* Fix list and text indentation for RTL */
+[dir="rtl"] .toc-h3 {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+[dir="rtl"] .tof-list {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+[dir="rtl"] .toc-list {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Post content indentation for RTL */
+[dir="rtl"] .post-content ul,
+[dir="rtl"] .post-content ol {
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
+[dir="rtl"] .post-content li {
+  text-align: right;
+}
+
+[dir="rtl"] .post-content blockquote {
+  border-left: none;
+  border-right: 4px solid $kali-red;
+  padding-left: 0;
+  padding-right: 1.5rem;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Back-to-top button positioning for RTL */
+[dir="rtl"] #back-to-top {
+  right: auto;
+  left: 2rem;
+}
+
+/* Report actions RTL */
+[dir="rtl"] .report-actions {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .post-header,
+[dir="rtl"] .post-meta {
+  text-align: right;
+}
+
+/* Mobile adjustments for RTL */
+@media (max-width: 768px) {
+  [dir="rtl"] #back-to-top {
+    left: 1rem;
+    right: auto;
+  }
 }
 
