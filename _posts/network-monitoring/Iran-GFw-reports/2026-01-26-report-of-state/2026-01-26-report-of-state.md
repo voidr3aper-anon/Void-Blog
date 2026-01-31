@@ -7,7 +7,7 @@ author: "The Void"
 author_link: "https://github.com/voidr3aper-anon"
 categories: [Network Monitoring]
 tags: [network-monitoring, report, iran]
-image: "images/trailer.png"
+image: "/assets/posts/network-monitoring/Iran-GFw-reports/2026-01-26-report-of-state/images/trailer.png"
 excerpt: "The internet state in the middle of Iran's protests"
 ---
 
@@ -25,7 +25,7 @@ As protests erupted across Iran, we have been documenting a massive internet shu
 
 During the first week of protests, bandwidth reduction from January 3–7 was the initial strategy. Examination of Cloudflare analytics reveals a counterintuitive pattern: overall traffic **rose** during this period. The bot-to-human ratio is more revealing: automated traffic surged rapidly—a clear indicator of active firewall probing and testing.
 
-![Human vs bot](images/human-vs-bot.png)
+![Human vs bot]({{ '/assets/posts/network-monitoring/Iran-GFw-reports/2026-01-26-report-of-state/images/human-vs-bot.png' | relative_url }})
 
 This changed dramatically on **January 9th**. A **complete communication blackout** occurred—not merely internet restriction, but total shutdown across all channels:
 
@@ -143,7 +143,7 @@ Both UDP and ICMP saw **near-complete blocking**—more aggressive than TCP filt
 - Home networks: **100% blocked**
 - Mobile networks: **heavily jammed**
 
-![ICMP block](images/icmp-block.png) 
+![ICMP block]({{ '/assets/posts/network-monitoring/Iran-GFw-reports/2026-01-26-report-of-state/images/icmp-block.png' | relative_url }})
 
 ### 3. DNS Protocol
 
@@ -158,7 +158,7 @@ DNS filtering has been Iran's primary censorship mechanism since 2009 (YouTube, 
 
 The dramatic shift in query types after January 11 is unmistakable: **TXT-based DNS queries surged sharply**, indicating widespread DNS tunneling adoption using protocols like `dnstt`.
 
-![Cloudflare DNS report](images/cloudflare-radar_data-explorer-visualizer_20260107-20260126.png)
+![Cloudflare DNS report]({{ '/assets/posts/network-monitoring/Iran-GFw-reports/2026-01-26-report-of-state/images/cloudflare-radar_data-explorer-visualizer_20260107-20260126.png' | relative_url }})
 
 **Interpretation:** The sudden spike in TXT records—normally negligible in DNS traffic—is a clear fingerprint of DNS tunneling. This technique succeeded because **authorities did not anticipate it**. The message to security teams: expect DNS tunneling to be blocked in future incidents.
 
@@ -288,7 +288,7 @@ These maintenance windows create optimal connectivity opportunities.
 
 *Note: Windows are not exact and vary based on user reports. Performance degradation during these periods indicates active firewall reconfiguration.* 
 
-![MCCI firewall Down time](images/firewall-down-time.png)
+![MCCI firewall Down time]({{ '/assets/posts/network-monitoring/Iran-GFw-reports/2026-01-26-report-of-state/images/firewall-down-time.png' | relative_url }})
 
 #### Issue 4: Carrier-Grade NAT Inconsistencies
 

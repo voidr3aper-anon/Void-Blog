@@ -3,7 +3,7 @@ name: Deploy Jekyll site to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["main", "copilot/create-personal-blog-network-monitoring"]
+    branches: ["main", "copilot/create-personal-blog-network-monitoring", "copilot/fix-article-thumbnail-issue"]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -27,6 +27,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      
+      - name: Copy post images to assets
+        run: |
+          chmod +x .github/scripts/copy-post-images.sh
+          ./.github/scripts/copy-post-images.sh
+      
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
