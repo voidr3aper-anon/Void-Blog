@@ -361,6 +361,26 @@ body {
   }
 }
 
+/* Language Switcher Button */
+.language-toggle {
+  cursor: pointer;
+  font-weight: 600;
+  background: $kali-accent;
+  border-color: $kali-accent;
+  color: $white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+  &:hover {
+    background: darken($kali-accent, 10%);
+    border-color: darken($kali-accent, 10%);
+    color: $white;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
 /* Mobile responsive navigation - Updated for hamburger menu */
 @media (max-width: 768px) {
   .top-nav-bar {
@@ -4468,3 +4488,168 @@ h3:hover .section-anchor {
     display: none !important;
   }
 }
+
+
+/* ===================================
+   RTL (Right-to-Left) Support for Persian Language
+   =================================== */
+
+/* RTL Layout Adjustments */
+[dir="rtl"] {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] body {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Navigation RTL */
+[dir="rtl"] .nav-buttons {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-bar-content {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-brand {
+  text-align: right;
+}
+
+/* Hero Section RTL */
+[dir="rtl"] .hero-content-kali {
+  text-align: right;
+}
+
+[dir="rtl"] .hero-stats-kali {
+  flex-direction: row-reverse;
+}
+
+/* Search RTL */
+[dir="rtl"] .search-kali {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .search-icon-kali {
+  order: 2;
+  padding-left: 1rem;
+  padding-right: 0;
+}
+
+[dir="rtl"] #search-input {
+  text-align: right;
+  padding-right: 1rem;
+  padding-left: 3rem;
+}
+
+/* Quick Links RTL */
+[dir="rtl"] .quick-links-grid {
+  direction: rtl;
+}
+
+[dir="rtl"] .quick-link-card {
+  text-align: right;
+}
+
+/* Document Cards RTL */
+[dir="rtl"] .doc-card-kali {
+  text-align: right;
+}
+
+[dir="rtl"] .doc-card-meta {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .doc-card-tags {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .doc-card-footer {
+  text-align: right;
+}
+
+/* Footer RTL */
+[dir="rtl"] .site-footer {
+  text-align: right;
+}
+
+[dir="rtl"] .footer-links-grid {
+  direction: rtl;
+}
+
+[dir="rtl"] .footer-link-item {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+
+/* Recent Updates RTL */
+[dir="rtl"] .recent-update-item {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .update-meta {
+  flex-direction: row-reverse;
+}
+
+/* Arrows and Icons RTL */
+[dir="rtl"] .doc-read-more::after,
+[dir="rtl"] .btn-view-all::after {
+  content: " ←";
+}
+
+[dir="rtl"] .doc-read-more,
+[dir="rtl"] .btn-view-all {
+  &::after {
+    content: none;
+  }
+}
+
+/* Mobile Menu RTL */
+[dir="rtl"] .mobile-menu-toggle {
+  left: 1rem;
+  right: auto;
+}
+
+@media (max-width: 768px) {
+  [dir="rtl"] .nav-buttons {
+    text-align: right;
+  }
+  
+  [dir="rtl"] .nav-brand {
+    text-align: right;
+  }
+}
+
+/* Persian Font Support */
+[lang="fa-IR"],
+[lang="fa"] {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0;
+  line-height: 2;
+}
+
+[lang="fa-IR"] .hero-title-kali,
+[lang="fa"] .hero-title-kali {
+  font-size: 2rem;
+  line-height: 1.6;
+}
+
+[lang="fa-IR"] .section-title-kali,
+[lang="fa"] .section-title-kali {
+  line-height: 1.8;
+}
+
+/* Fix spacing for Persian text */
+[dir="rtl"] .doc-card-meta > * + * {
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
+[dir="rtl"] .update-meta > * + * {
+  margin-right: 1rem;
+  margin-left: 0;
+}
+

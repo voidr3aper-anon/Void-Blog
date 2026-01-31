@@ -50,6 +50,7 @@
         
         <nav class="nav-buttons">
           <a href="{{ "/" | relative_url }}" class="nav-btn">Home</a>
+          <button id="language-toggle" class="nav-btn language-toggle" aria-label="Switch language">فا</button>
           <a href="{{ "/about/" | relative_url }}" class="nav-btn">About</a>
           <a href="{{ "/tools/" | relative_url }}" class="nav-btn">Tools</a>
           <a href="{{ "/resources/" | relative_url }}" class="nav-btn">Resources</a>
@@ -85,6 +86,7 @@
     <button id="back-to-top" aria-label="Back to top">↑</button>
 
     <!-- Scripts -->
+    <script src="{{ "/assets/js/language-switcher.js" | relative_url }}"></script>
     <script src="{{ "/assets/js/mobile-menu.js" | relative_url }}"></script>
     <script src="{{ "/assets/js/touch-enhancements.js" | relative_url }}"></script>
     <script src="{{ "/assets/js/landing-splash.js" | relative_url }}"></script>
