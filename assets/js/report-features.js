@@ -537,6 +537,27 @@
     return text.replace(/[&<>"']/g, m => map[m]);
   }
 
+  // ===== Table Wrapper for Mobile Responsiveness =====
+  function initTableWrapper() {
+    // Select all tables in the post content
+    const tables = document.querySelectorAll('.post-content table, .main-content table');
+    
+    tables.forEach(table => {
+      // Check if table is already wrapped
+      if (table.parentElement.classList.contains('table-wrapper')) {
+        return;
+      }
+      
+      // Create wrapper div
+      const wrapper = document.createElement('div');
+      wrapper.className = 'table-wrapper';
+      
+      // Insert wrapper before table and move table into it
+      table.parentNode.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+    });
+  }
+
   // Initialize all features
   function init() {
     initReadingProgress();
@@ -555,6 +576,7 @@
     initVersionHistory();
     initQuickNav();
     initLastUpdated();
+    initTableWrapper();
   }
 
   // Run when DOM is ready
