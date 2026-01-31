@@ -4647,3 +4647,26 @@ h3:hover .section-anchor {
   margin-left: 0;
 }
 
+/* Post Layout and TOC RTL Support */
+[dir="rtl"] .sidebar-toc {
+  left: auto;
+  right: 0;
+  border-right: none;
+  border-left: $toc-sidebar-border solid $kali-border;
+}
+
+[dir="rtl"] .post-content-wrapper {
+  margin-left: 0;
+  margin-right: calc(#{$toc-sidebar-width} + #{$toc-sidebar-border});
+}
+
+[dir="rtl"] #table-of-contents {
+  border-left: none;
+  border-right: 3px solid $kali-red;
+}
+
+[dir="rtl"] .toc-item.active a {
+  border-left: none;
+  border-right: 2px solid $kali-red;
+}
+

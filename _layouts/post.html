@@ -97,14 +97,20 @@ layout: default
       <div class="related-posts">
         <h2>Related Reports</h2>
         <div class="related-posts-grid">
-          {% for post in site.related_posts limit:3 %}
-          <div class="related-post-card">
-            <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
-            <p class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</p>
-            {% if post.excerpt %}
-              <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+          {% assign current_lang = page.lang | default: 'en' %}
+          {% assign related_count = 0 %}
+          {% for post in site.related_posts %}
+            {% assign post_lang = post.lang | default: 'en' %}
+            {% if post_lang == current_lang and related_count < 3 %}
+              {% assign related_count = related_count | plus: 1 %}
+              <div class="related-post-card">
+                <h3><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h3>
+                <p class="post-meta">{{ post.date | date: "%B %-d, %Y" }}</p>
+                {% if post.excerpt %}
+                  <p>{{ post.excerpt | strip_html | truncatewords: 20 }}</p>
+                {% endif %}
+              </div>
             {% endif %}
-          </div>
           {% endfor %}
         </div>
       </div>
