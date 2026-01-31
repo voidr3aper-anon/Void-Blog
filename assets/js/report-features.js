@@ -543,8 +543,13 @@
     const tables = document.querySelectorAll('.post-content table, .main-content table');
     
     tables.forEach(table => {
-      // Check if table is already wrapped
-      if (table.parentElement.classList.contains('table-wrapper')) {
+      // Check if table is already wrapped (with null safety)
+      if (table.parentElement && table.parentElement.classList.contains('table-wrapper')) {
+        return;
+      }
+      
+      // Ensure table has a parent element
+      if (!table.parentNode) {
         return;
       }
       
