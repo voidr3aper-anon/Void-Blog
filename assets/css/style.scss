@@ -4758,9 +4758,10 @@ h3:hover .section-anchor {
 
 @media (max-width: 768px) {
   [dir="rtl"] #back-to-top {
+    bottom: 100px; /* Position higher to avoid TOC toggle overlap */
     left: 1rem;
     right: auto;
-    z-index: 1001; /* Above TOC toggle button */
+    z-index: 1000; /* Same level as TOC toggle, but different position */
   }
   
   [dir="rtl"] .post-header-section {
