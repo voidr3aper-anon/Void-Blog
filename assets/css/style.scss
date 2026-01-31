@@ -705,8 +705,7 @@ body {
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   margin: 2rem auto;
-  display: flex;
-  justify-content: center;
+  text-align: center;
 }
 
 .main-content table,
@@ -715,10 +714,11 @@ body {
   border-collapse: collapse;
   width: auto;
   max-width: 100%;
-  margin: 0;
+  margin: 0 auto;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  display: inline-table;
 }
 
 .main-content table thead,
@@ -4320,7 +4320,7 @@ h3:hover .section-anchor {
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    margin: 1.5rem 0;
+    margin: 2rem 0;
     display: block;
   }
   
