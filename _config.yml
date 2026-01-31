@@ -41,6 +41,7 @@ exclude:
   - vendor/gems/
   - vendor/ruby/
   - .github/
+  - "**/**/images/**"  # Exclude all images directories from processing (images are copied to assets/)
 
 # Permalink style - Clean URLs based on directory structure
 permalink: /:categories/:title/
