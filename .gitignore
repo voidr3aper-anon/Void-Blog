@@ -47,6 +47,10 @@ vendor/
 Gemfile.lock
 .backup
 
+# Copied post images (generated during build) #
+###############################################
+assets/posts/
+
 # Development files #
 #####################
 *.swp
