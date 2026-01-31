@@ -704,7 +704,7 @@ body {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  margin: 2rem auto;
+  margin: 2rem 0;
   text-align: center;
 }
 
@@ -4328,7 +4328,6 @@ h3:hover .section-anchor {
   .main-content table {
     display: table;
     width: auto;
-    min-width: 100%;
     margin: 0;
   }
   
