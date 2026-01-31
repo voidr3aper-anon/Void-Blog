@@ -277,17 +277,22 @@
   function getAlternateLanguageUrl(currentLang, newLang) {
     const currentPath = window.location.pathname;
     
-    // More flexible check - if URL has multiple path segments, likely a post
+    // Split path and filter empty segments
     const pathSegments = currentPath.split('/').filter(s => s.length > 0);
     
-    // If we have at least 2 segments (e.g., /category/post-name/), it's likely a post
-    // But exclude common pages like /about/, /archive/, etc.
-    const commonPages = ['about', 'tools', 'resources', 'archive'];
-    const isCommonPage = pathSegments.length === 1 || 
-                        (pathSegments.length === 2 && commonPages.includes(pathSegments[pathSegments.length - 1]));
+    console.log('Checking if post page:', { 
+      currentPath, 
+      pathSegments, 
+      segmentCount: pathSegments.length 
+    });
     
-    if (isCommonPage) {
-      return null; // Not a post page, just a regular page
+    // A post URL has the pattern: /baseurl/category/post-title/
+    // After filtering empty segments, we should have at least 3 parts for a post
+    // (e.g., ['Void-Blog', 'network-monitoring', 'report-of-state'])
+    // Regular pages have 2 or less (e.g., ['Void-Blog', 'about'])
+    if (pathSegments.length < 3) {
+      console.log('Not a post page - too few segments');
+      return null; // Not enough segments to be a post
     }
     
     // Try to find alternate version by swapping -fa suffix
@@ -308,6 +313,7 @@
     
     console.log('Language switch:', {
       currentPath,
+      pathSegments,
       currentLang,
       newLang,
       alternatePath,
