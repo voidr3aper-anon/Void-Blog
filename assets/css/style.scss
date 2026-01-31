@@ -701,10 +701,11 @@ body {
 /* Tables - Kali themed */
 /* Table wrapper for responsive overflow handling */
 .table-wrapper {
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  margin: 2rem 0;
+  margin: 2rem auto;
 }
 
 .main-content table,
