@@ -4670,10 +4670,7 @@ h3:hover .section-anchor {
   margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
 }
 
-[dir="rtl"] .site-footer {
-  margin-left: 0;
-  margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
-}
+/* Site footer stays full-width - it's a site-wide element, not part of post content */
 
 [dir="rtl"] #table-of-contents {
   border-left: none;
@@ -4756,16 +4753,14 @@ h3:hover .section-anchor {
     margin-right: 280px; /* 240px sidebar + 40px spacing */
   }
   
-  [dir="rtl"] .site-footer {
-    margin-left: 0;
-    margin-right: 280px; /* 240px sidebar + 40px spacing */
-  }
+  /* Site footer stays full-width on tablet too */
 }
 
 @media (max-width: 768px) {
   [dir="rtl"] #back-to-top {
     left: 1rem;
     right: auto;
+    z-index: 1001; /* Above TOC toggle button */
   }
   
   [dir="rtl"] .post-header-section {
@@ -4783,10 +4778,7 @@ h3:hover .section-anchor {
     margin-right: 0;
   }
   
-  [dir="rtl"] .site-footer {
-    margin-left: 0;
-    margin-right: 0;
-  }
+  /* Site footer stays full-width on mobile - no margin needed */
   
   /* Mobile TOC - RTL positioning */
   [dir="rtl"] .toc-mobile-toggle {
@@ -4807,10 +4799,11 @@ h3:hover .section-anchor {
     right: 0;
   }
   
-  /* Mobile navigation RTL */
+  /* Mobile navigation RTL - keep vertical stacking */
   [dir="rtl"] .mobile-nav {
     left: auto;
     right: 0;
+    flex-direction: column; /* Maintain vertical stacking in RTL */
   }
   
   [dir="rtl"] .hamburger {
