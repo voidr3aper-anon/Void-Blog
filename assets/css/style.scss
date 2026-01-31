@@ -4657,22 +4657,22 @@ h3:hover .section-anchor {
 
 [dir="rtl"] .post-content-wrapper {
   margin-left: 0;
-  margin-right: 302px; /* 300px sidebar + 2px border */
+  margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
 }
 
 [dir="rtl"] .post-header-section {
   margin-left: 0;
-  margin-right: 302px; /* 300px sidebar + 2px border */
+  margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
 }
 
 [dir="rtl"] .post-footer {
   margin-left: 0;
-  margin-right: 302px; /* 300px sidebar + 2px border */
+  margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
 }
 
 [dir="rtl"] .site-footer {
   margin-left: 0;
-  margin-right: 302px; /* 300px sidebar + 2px border */
+  margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
 }
 
 [dir="rtl"] #table-of-contents {
@@ -4743,22 +4743,22 @@ h3:hover .section-anchor {
 @media (max-width: 1024px) {
   [dir="rtl"] .post-header-section {
     margin-left: 0;
-    margin-right: 242px; /* 240px sidebar + 2px border */
+    margin-right: 280px; /* 240px sidebar + 40px spacing */
   }
   
   [dir="rtl"] .post-content-wrapper {
     margin-left: 0;
-    margin-right: 242px; /* 240px sidebar + 2px border */
+    margin-right: 280px; /* 240px sidebar + 40px spacing */
   }
   
   [dir="rtl"] .post-footer {
     margin-left: 0;
-    margin-right: 242px; /* 240px sidebar + 2px border */
+    margin-right: 280px; /* 240px sidebar + 40px spacing */
   }
   
   [dir="rtl"] .site-footer {
     margin-left: 0;
-    margin-right: 242px; /* 240px sidebar + 2px border */
+    margin-right: 280px; /* 240px sidebar + 40px spacing */
   }
 }
 
@@ -4786,6 +4786,36 @@ h3:hover .section-anchor {
   [dir="rtl"] .site-footer {
     margin-left: 0;
     margin-right: 0;
+  }
+  
+  /* Mobile TOC - RTL positioning */
+  [dir="rtl"] .toc-mobile-toggle {
+    right: auto;
+    left: 20px;
+  }
+  
+  [dir="rtl"] .sidebar-toc {
+    left: auto;
+    right: -100%;
+    border-right: none;
+    border-left: 1px solid $border-color;
+    transition: right 0.3s ease;
+  }
+  
+  [dir="rtl"] .sidebar-toc.active {
+    left: auto;
+    right: 0;
+  }
+  
+  /* Mobile navigation RTL */
+  [dir="rtl"] .mobile-nav {
+    left: auto;
+    right: 0;
+  }
+  
+  [dir="rtl"] .hamburger {
+    left: auto;
+    right: 1rem;
   }
 }
 
