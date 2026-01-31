@@ -46,7 +46,7 @@ while IFS= read -r image_dir; do
     mkdir -p "$dest_dir"
     
     # Copy all image files (with supported extensions)
-    # Supported: png, jpg, jpeg, gif, svg, webp, ico
+    # Supported: png, jpg, jpeg, gif, svg, webp, ico, bmp, tiff, tif
     for image_file in "$image_dir"/*; do
         if [ -f "$image_file" ]; then
             # Get file extension (lowercase)
