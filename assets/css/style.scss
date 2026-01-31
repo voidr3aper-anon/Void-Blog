@@ -4773,6 +4773,11 @@ h3:hover .section-anchor {
     margin-right: 0;
   }
   
+  [dir="rtl"] .post-content-wrapper {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
   [dir="rtl"] .post-footer {
     margin-left: 0;
     margin-right: 0;
