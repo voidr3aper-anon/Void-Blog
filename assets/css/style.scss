@@ -4878,8 +4878,8 @@ h3:hover .section-anchor {
   
   /* Footer text spacing on mobile for RTL */
   [dir="rtl"] .site-footer {
-    word-wrap: break-word;
-    overflow-wrap: break-word;
+    word-wrap: break-word;      /* Legacy fallback */
+    overflow-wrap: break-word;  /* Modern standard for proper wrapping */
   }
   
   /* Ensure footer spans display properly on mobile RTL */
