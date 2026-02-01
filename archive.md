@@ -19,7 +19,8 @@ Browse all blog posts by date, category, and topic.
 
 <div class="category-filter">
   <button class="filter-btn active" data-category="all">All Posts</button>
-  {% assign categories = site.posts | map: 'categories' | join: ',' | split: ',' | uniq | sort %}
+  {% assign english_posts = site.posts | where_exp: "post", "post.lang != 'fa'" %}
+  {% assign categories = english_posts | map: 'categories' | join: ',' | split: ',' | uniq | sort %}
   {% for category in categories %}
     {% if category != "" %}
       <button class="filter-btn" data-category="{{ category }}">{{ category }}</button>
@@ -29,7 +30,7 @@ Browse all blog posts by date, category, and topic.
 
 ## Posts by Date
 
-{% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+{% assign posts_by_year = english_posts | group_by_exp: "post", "post.date | date: '%Y'" %}
 
 {% for year_group in posts_by_year %}
 <div class="year-section">
@@ -72,7 +73,7 @@ Browse all blog posts by date, category, and topic.
 
 <div class="tool-grid">
   <div class="tool-card">
-    <h3>{{ site.posts | size }}</h3>
+    <h3>{{ english_posts | size }}</h3>
     <p class="tool-description">Total Posts</p>
   </div>
   

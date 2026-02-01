@@ -531,15 +531,20 @@
     
     if (currentCategories.length === 0) return;
     
+    // Detect current page language from URL or HTML attributes
+    const currentLang = document.documentElement.lang.includes('fa') ? 'fa' : 'en';
+    
     // Fetch posts data
     const baseUrl = window.location.pathname.includes('/Void-Blog/') ? '/Void-Blog' : '';
     fetch(baseUrl + '/search.json')
       .then(response => response.json())
       .then(posts => {
-        // Find related posts based on shared categories
+        // Find related posts based on shared categories AND same language
         const related = posts
           .filter(function(post) {
+            const postLang = post.lang || 'en';
             return post.url !== currentUrl && 
+                   postLang === currentLang &&
                    currentCategories.some(function(cat) {
                      return post.categories.includes(cat);
                    });

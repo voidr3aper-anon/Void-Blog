@@ -361,6 +361,26 @@ body {
   }
 }
 
+/* Language Switcher Button */
+.language-toggle {
+  cursor: pointer;
+  font-weight: 600;
+  background: $kali-accent;
+  border-color: $kali-accent;
+  color: $white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+  &:hover {
+    background: darken($kali-accent, 10%);
+    border-color: darken($kali-accent, 10%);
+    color: $white;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+}
+
 /* Mobile responsive navigation - Updated for hamburger menu */
 @media (max-width: 768px) {
   .top-nav-bar {
@@ -4468,3 +4488,329 @@ h3:hover .section-anchor {
     display: none !important;
   }
 }
+
+
+/* ===================================
+   RTL (Right-to-Left) Support for Persian Language
+   =================================== */
+
+/* RTL Layout Adjustments */
+[dir="rtl"] {
+  text-align: right;
+  direction: rtl;
+}
+
+[dir="rtl"] body {
+  text-align: right;
+  direction: rtl;
+}
+
+/* Navigation RTL */
+[dir="rtl"] .nav-buttons {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-bar-content {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .nav-brand {
+  text-align: right;
+}
+
+/* Hero Section RTL */
+[dir="rtl"] .hero-content-kali {
+  text-align: right;
+}
+
+[dir="rtl"] .hero-stats-kali {
+  flex-direction: row-reverse;
+}
+
+/* Search RTL */
+[dir="rtl"] .search-kali {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .search-icon-kali {
+  order: 2;
+  padding-left: 1rem;
+  padding-right: 0;
+}
+
+[dir="rtl"] #search-input {
+  text-align: right;
+  padding-right: 1rem;
+  padding-left: 3rem;
+}
+
+/* Quick Links RTL */
+[dir="rtl"] .quick-links-grid {
+  direction: rtl;
+}
+
+[dir="rtl"] .quick-link-card {
+  text-align: right;
+}
+
+/* Document Cards RTL */
+[dir="rtl"] .doc-card-kali {
+  text-align: right;
+}
+
+[dir="rtl"] .doc-card-meta {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .doc-card-tags {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .doc-card-footer {
+  text-align: right;
+}
+
+/* Footer RTL */
+[dir="rtl"] .site-footer {
+  text-align: right;
+}
+
+[dir="rtl"] .footer-links-grid {
+  direction: rtl;
+}
+
+[dir="rtl"] .footer-link-item {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+
+/* Recent Updates RTL */
+[dir="rtl"] .recent-update-item {
+  text-align: right;
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .update-meta {
+  flex-direction: row-reverse;
+}
+
+/* Arrows and Icons RTL */
+/* In RTL mode, arrows should point left instead of right */
+[dir="rtl"] .doc-read-more::after,
+[dir="rtl"] .btn-view-all::after {
+  content: " ←";
+}
+
+/* Mobile Menu RTL */
+[dir="rtl"] .mobile-menu-toggle {
+  left: 1rem;
+  right: auto;
+}
+
+@media (max-width: 768px) {
+  [dir="rtl"] .nav-buttons {
+    flex-direction: column; /* Override row-reverse from global RTL rule - stack vertically on mobile */
+    text-align: right;
+  }
+  
+  [dir="rtl"] .nav-brand {
+    text-align: right;
+  }
+}
+
+/* Persian Font Support */
+[lang="fa-IR"],
+[lang="fa"] {
+  font-family: Tahoma, "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0;
+  line-height: 2;
+}
+
+[lang="fa-IR"] .hero-title-kali,
+[lang="fa"] .hero-title-kali {
+  font-size: 2rem;
+  line-height: 1.6;
+}
+
+[lang="fa-IR"] .section-title-kali,
+[lang="fa"] .section-title-kali {
+  line-height: 1.8;
+}
+
+/* Fix spacing for Persian text */
+[dir="rtl"] .doc-card-meta > * + * {
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
+[dir="rtl"] .update-meta > * + * {
+  margin-right: 1rem;
+  margin-left: 0;
+}
+
+/* Post Layout and TOC RTL Support */
+[dir="rtl"] .sidebar-toc {
+  left: auto;
+  right: 0;
+  border-right: none;
+  border-left: $toc-sidebar-border solid $kali-border;
+}
+
+[dir="rtl"] .post-content-wrapper {
+  margin-left: 0;
+  margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
+}
+
+[dir="rtl"] .post-header-section {
+  margin-left: 0;
+  margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
+}
+
+[dir="rtl"] .post-footer {
+  margin-left: 0;
+  margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
+}
+
+/* Site footer stays full-width - it's a site-wide element, not part of post content */
+
+[dir="rtl"] #table-of-contents {
+  border-left: none;
+  border-right: 3px solid $kali-red;
+}
+
+[dir="rtl"] .toc-item.active a {
+  border-left: none;
+  border-right: 2px solid $kali-red;
+  padding-left: 0.4rem;
+  padding-right: 0.75rem;
+}
+
+/* Fix list and text indentation for RTL */
+[dir="rtl"] .toc-h3 {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+[dir="rtl"] .tof-list {
+  padding-left: 0;
+  padding-right: 1.5rem;
+}
+
+[dir="rtl"] .toc-list {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Post content indentation for RTL */
+[dir="rtl"] .post-content ul,
+[dir="rtl"] .post-content ol {
+  padding-left: 0;
+  padding-right: 2rem;
+}
+
+[dir="rtl"] .post-content li {
+  text-align: right;
+}
+
+[dir="rtl"] .post-content blockquote {
+  border-left: none;
+  border-right: 4px solid $kali-red;
+  padding-left: 0;
+  padding-right: 1.5rem;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Back-to-top button positioning for RTL */
+[dir="rtl"] #back-to-top {
+  right: auto;
+  left: 2rem;
+}
+
+/* Report actions RTL */
+[dir="rtl"] .report-actions {
+  flex-direction: row-reverse;
+}
+
+[dir="rtl"] .post-header,
+[dir="rtl"] .post-meta {
+  text-align: right;
+}
+
+/* Tablet adjustments for RTL */
+@media (max-width: 1024px) {
+  [dir="rtl"] .post-header-section {
+    margin-left: 0;
+    margin-right: 280px; /* 240px sidebar + 40px spacing */
+  }
+  
+  [dir="rtl"] .post-content-wrapper {
+    margin-left: 0;
+    margin-right: 280px; /* 240px sidebar + 40px spacing */
+  }
+  
+  [dir="rtl"] .post-footer {
+    margin-left: 0;
+    margin-right: 280px; /* 240px sidebar + 40px spacing */
+  }
+  
+  /* Site footer stays full-width on tablet too */
+}
+
+@media (max-width: 768px) {
+  [dir="rtl"] #back-to-top {
+    bottom: 100px; /* Position higher to avoid TOC toggle overlap */
+    left: 1rem;
+    right: auto;
+    z-index: 1000; /* Same level as TOC toggle, but different position */
+  }
+  
+  [dir="rtl"] .post-header-section {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  [dir="rtl"] .post-content-wrapper {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  [dir="rtl"] .post-footer {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  /* Site footer stays full-width on mobile - no margin needed */
+  
+  /* Mobile TOC - RTL positioning */
+  [dir="rtl"] .toc-mobile-toggle {
+    right: auto;
+    left: 20px;
+  }
+  
+  [dir="rtl"] .sidebar-toc {
+    left: auto;
+    right: -100%;
+    border-right: none;
+    border-left: 1px solid $border-color;
+    transition: right 0.3s ease;
+  }
+  
+  [dir="rtl"] .sidebar-toc.active {
+    left: auto;
+    right: 0;
+  }
+  
+  /* Mobile navigation RTL - keep vertical stacking */
+  [dir="rtl"] .mobile-nav {
+    left: auto;
+    right: 0;
+    flex-direction: column; /* Maintain vertical stacking in RTL */
+  }
+  
+  [dir="rtl"] .hamburger {
+    left: auto;
+    right: 1rem;
+  }
+}
+

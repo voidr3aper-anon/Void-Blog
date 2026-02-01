@@ -9,6 +9,7 @@ layout: null
       "date": "{{ post.date | date: '%B %-d, %Y' }}",
       "categories": "{{ post.categories | join: ', ' }}",
       "tags": "{{ post.tags | join: ', ' }}",
+      "lang": "{{ post.lang | default: 'en' }}",
       "content": {{ post.content | strip_html | truncatewords: 50 | jsonify }}
     }{% unless forloop.last %},{% endunless %}
   {% endfor %}

@@ -1,0 +1,63 @@
+# Persian (Farsi) translations - ترجمه‌های فارسی
+nav:
+  home: "خانه"
+  about: "درباره"
+  tools: "ابزارها"
+  resources: "منابع"
+  archive: "آرشیو"
+  github: "گیت‌هاب"
+
+hero:
+  title: "تحلیل شبکه و تحقیقات امنیتی"
+  subtitle: "مستندات حرفه‌ای برای تست نفوذ، تحلیل امنیت شبکه و تکنیک‌های دور زدن سانسور"
+  tools: "ابزارها"
+  tutorials: "آموزش‌ها"
+  reports: "گزارش‌ها"
+
+search:
+  placeholder: "root@voidblog:~# جستجو..."
+
+sections:
+  quick_start: "شروع سریع"
+  latest_reports: "آخرین گزارش‌های امنیتی"
+  recently_updated: "به‌روزرسانی اخیر"
+
+quick_links:
+  vpn_tools: "ابزارهای VPN"
+  vpn_desc: "OpenVPN, WireGuard, V2Ray"
+  network_analysis: "تحلیل شبکه"
+  network_desc: "Wireshark, tcpdump, nmap"
+  tutorials: "آموزش‌ها"
+  tutorials_desc: "راهنماهای گام به گام"
+  security_testing: "تست امنیتی"
+  security_desc: "ابزارهای تست نفوذ"
+
+doc_card:
+  min_read: "دقیقه مطالعه"
+  read_more: "خواندن مستندات ←"
+  view_all: "مشاهده همه گزارش‌ها ←"
+  updated: "به‌روز شده"
+
+footer:
+  maintained_by: "نگهداری توسط"
+  generated_by: "این صفحه توسط"
+  tools_resources: "ابزارها و منابع"
+  tutorials: "آموزش‌ها"
+  archive: "آرشیو"
+  about: "درباره"
+  disclaimer: "سلب مسئولیت:"
+  disclaimer_text: "تمام محتوا صرفاً برای اهداف آموزشی است. همیشه از رعایت قوانین و مقررات محلی اطمینان حاصل کنید."
+  privacy: "حریم خصوصی"
+  security: "امنیت"
+  rss_feed: "خوراک RSS"
+
+offline:
+  cached: "ذخیره شده برای استفاده آفلاین"
+
+buttons:
+  back_to_top: "بازگشت به بالا"
+  scroll_down: "پایین بروید"
+
+meta:
+  skip_content: "رفتن به محتوا."
+  toggle_menu: "نمایش منوی ناوبری"

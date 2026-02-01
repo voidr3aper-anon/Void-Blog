@@ -106,8 +106,8 @@ title: Void Blog - Network Analysis, Hacking & GFW Bypass
     
     <!-- Visual Document Cards with Images -->
     <div class="doc-cards-grid">
-    {% for post in site.posts limit:6 %}
-      <article class="doc-card-kali">
+    {% for post in site.posts limit:12 %}
+      <article class="doc-card-kali" data-post-lang="{{ post.lang | default: 'en' }}">
         {% if post.image %}
         <div class="doc-card-image">
           <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
@@ -169,8 +169,8 @@ title: Void Blog - Network Analysis, Hacking & GFW Bypass
     
     <div class="recent-updates-grid">
       {% assign sorted_posts = site.posts | sort: 'last_modified_at' | reverse %}
-      {% for post in sorted_posts limit:4 %}
-        <article class="recent-update-item">
+      {% for post in sorted_posts limit:8 %}
+        <article class="recent-update-item" data-post-lang="{{ post.lang | default: 'en' }}">
           <div class="update-indicator">UPDATED</div>
           <div class="update-content">
             <h3 class="update-title">
