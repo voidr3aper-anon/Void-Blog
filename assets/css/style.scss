@@ -4874,6 +4874,7 @@ h3:hover .section-anchor {
   [dir="rtl"] .post ~ .site-footer {
     margin-left: 0;
     margin-right: 0;
+    padding: 2rem 1.5rem;  /* Override desktop padding - TOC hidden on mobile */
   }
   
   /* Footer text spacing on mobile for RTL */
