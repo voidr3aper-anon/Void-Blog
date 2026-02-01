@@ -4878,7 +4878,7 @@ h3:hover .section-anchor {
   
   /* Footer text spacing on mobile for RTL */
   [dir="rtl"] .site-footer {
-    text-align: right;          /* Align text to right in RTL mobile */
+    /* text-align: center inherited from general RTL rule (line 4651) */
     word-wrap: break-word;      /* Legacy fallback */
     overflow-wrap: break-word;  /* Modern standard for proper wrapping */
   }
