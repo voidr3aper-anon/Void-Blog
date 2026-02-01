@@ -669,9 +669,17 @@
   function hideBackToHomeForPersian() {
     const postFooter = document.querySelector('.post-footer');
     if (postFooter) {
-      const lang = postFooter.getAttribute('data-lang') || 
-                   document.documentElement.lang || 
-                   document.documentElement.getAttribute('dir') === 'rtl' ? 'fa' : 'en';
+      // Try to get language from multiple sources with clear precedence
+      let lang = postFooter.getAttribute('data-lang');
+      if (!lang) {
+        lang = document.documentElement.lang;
+      }
+      if (!lang && document.documentElement.getAttribute('dir') === 'rtl') {
+        lang = 'fa';
+      }
+      if (!lang) {
+        lang = 'en';
+      }
       
       const backToHomeLink = postFooter.querySelector('.back-to-home-link');
       if (backToHomeLink && lang === 'fa') {
