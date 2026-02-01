@@ -4745,9 +4745,9 @@ h3:hover .section-anchor {
 /* Site footer on post pages with TOC sidebar */
 [dir="rtl"] .post ~ .site-footer {
   margin-left: 0;
-  margin-right: 340px; /* Match post-content-wrapper: 300px sidebar + 2px border + 38px spacing */
+  margin-right: 0; /* Full width - let background extend to TOC */
   padding-left: 2rem;
-  padding-right: 2rem;
+  padding-right: calc(340px + 2rem); /* Sidebar width + content padding */
 }
 
 [dir="rtl"] #table-of-contents {
@@ -4834,9 +4834,9 @@ h3:hover .section-anchor {
   /* Site footer on post pages with TOC sidebar - tablet */
   [dir="rtl"] .post ~ .site-footer {
     margin-left: 0;
-    margin-right: 280px; /* Match post-content-wrapper: 240px sidebar + 2px border + 38px spacing */
+    margin-right: 0; /* Full width - let background extend to TOC */
     padding-left: 2rem;
-    padding-right: 2rem;
+    padding-right: calc(280px + 2rem); /* Smaller sidebar width + content padding */
   }
   
   /* Site footer stays full-width on tablet too */
