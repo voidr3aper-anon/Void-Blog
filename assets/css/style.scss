@@ -4609,6 +4609,7 @@ h3:hover .section-anchor {
 
 @media (max-width: 768px) {
   [dir="rtl"] .nav-buttons {
+    flex-direction: column; /* Override row-reverse from global RTL rule - stack vertically on mobile */
     text-align: right;
   }
   
