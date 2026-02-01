@@ -4643,7 +4643,7 @@ h3:hover .section-anchor {
 
 /* Footer RTL */
 [dir="rtl"] .site-footer {
-  text-align: right;
+  text-align: center; /* Keep center alignment even in RTL for consistency */
 }
 
 [dir="rtl"] .footer-links-grid {
@@ -4742,7 +4742,13 @@ h3:hover .section-anchor {
   margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
 }
 
-/* Site footer stays full-width - it's a site-wide element, not part of post content */
+/* Site footer on post pages with TOC sidebar */
+[dir="rtl"] .post .site-footer {
+  margin-left: 0;
+  margin-right: calc(#{$toc-sidebar-width} + #{$toc-sidebar-border});
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
 
 [dir="rtl"] #table-of-contents {
   border-left: none;
@@ -4825,6 +4831,14 @@ h3:hover .section-anchor {
     margin-right: 280px; /* 240px sidebar + 40px spacing */
   }
   
+  /* Site footer on post pages with TOC sidebar - tablet */
+  [dir="rtl"] .post .site-footer {
+    margin-left: 0;
+    margin-right: calc(#{$toc-sidebar-width-tablet} + #{$toc-sidebar-border});
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  
   /* Site footer stays full-width on tablet too */
 }
 
@@ -4847,6 +4861,12 @@ h3:hover .section-anchor {
   }
   
   [dir="rtl"] .post-footer {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  /* Site footer on mobile - full width, no sidebar */
+  [dir="rtl"] .post .site-footer {
     margin-left: 0;
     margin-right: 0;
   }
