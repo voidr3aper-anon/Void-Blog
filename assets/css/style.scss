@@ -4747,7 +4747,15 @@ h3:hover .section-anchor {
   margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
 }
 
-/* Site footer on post pages with TOC sidebar */
+/* Site footer on post pages with TOC sidebar - LTR (default) */
+.post ~ .site-footer {
+  margin-left: 0;
+  margin-right: 0; /* Full width - let background extend to TOC */
+  padding-left: calc(340px + 2rem); /* Sidebar width + content padding */
+  padding-right: 2rem;
+}
+
+/* Site footer on post pages with TOC sidebar - RTL */
 [dir="rtl"] .post ~ .site-footer {
   margin-left: 0;
   margin-right: 0; /* Full width - let background extend to TOC */
@@ -4836,7 +4844,15 @@ h3:hover .section-anchor {
     margin-right: 280px; /* 240px sidebar + 40px spacing */
   }
   
-  /* Site footer on post pages with TOC sidebar - tablet */
+  /* Site footer on post pages with TOC sidebar - tablet - LTR */
+  .post ~ .site-footer {
+    margin-left: 0;
+    margin-right: 0; /* Full width - let background extend to TOC */
+    padding-left: calc(280px + 2rem); /* Smaller sidebar width + content padding */
+    padding-right: 2rem;
+  }
+  
+  /* Site footer on post pages with TOC sidebar - tablet - RTL */
   [dir="rtl"] .post ~ .site-footer {
     margin-left: 0;
     margin-right: 0; /* Full width - let background extend to TOC */
@@ -4870,7 +4886,14 @@ h3:hover .section-anchor {
     margin-right: 0;
   }
   
-  /* Site footer on mobile - full width, no sidebar */
+  /* Site footer on mobile - full width, no sidebar - LTR */
+  .post ~ .site-footer {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 2rem 1.5rem;  /* Override desktop padding - TOC hidden on mobile */
+  }
+  
+  /* Site footer on mobile - full width, no sidebar - RTL */
   [dir="rtl"] .post ~ .site-footer {
     margin-left: 0;
     margin-right: 0;
