@@ -4883,11 +4883,7 @@ h3:hover .section-anchor {
     overflow-wrap: break-word;  /* Modern standard for proper wrapping */
   }
   
-  /* Ensure footer spans display properly on mobile RTL */
-  [dir="rtl"] .site-footer span {
-    display: inline-block;
-    max-width: 100%;
-  }
+  /* Remove inline-block behavior that causes word-by-word stacking */
   
   /* Site footer stays full-width on mobile - no margin needed */
   
