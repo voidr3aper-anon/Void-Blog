@@ -845,6 +845,11 @@ body {
   .main-content h2 {
     font-size: 1.5rem;
   }
+  
+  /* Footer horizontal padding on mobile for better text flow */
+  .site-footer {
+    padding: 2rem 1.5rem;
+  }
 }
 
 /* Smooth transitions */
@@ -4869,6 +4874,19 @@ h3:hover .section-anchor {
   [dir="rtl"] .post ~ .site-footer {
     margin-left: 0;
     margin-right: 0;
+  }
+  
+  /* Footer text spacing on mobile for RTL */
+  [dir="rtl"] .site-footer {
+    padding: 2rem 1.5rem; /* Add horizontal padding on mobile */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  
+  /* Ensure footer spans display properly on mobile RTL */
+  [dir="rtl"] .site-footer span {
+    display: inline-block;
+    max-width: 100%;
   }
   
   /* Site footer stays full-width on mobile - no margin needed */
