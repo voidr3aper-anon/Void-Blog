@@ -142,8 +142,8 @@
     if (!tocWrapper) return;
 
     // Constants for better maintainability
-    const SCROLL_THROTTLE_DELAY = 50; // Throttle delay for scroll events in ms
-    const EASING_FACTOR = 0.15; // Lower value = slower, smoother movement (0.1-0.3 recommended)
+    const SCROLL_THROTTLE_DELAY = 16; // ~60fps for ultra-responsive tracking
+    const EASING_FACTOR = 0.08; // Ultra-smooth movement (lower = smoother, less jumpy)
     
     let currentTOCScroll = tocWrapper.scrollTop;
     let targetTOCScroll = currentTOCScroll;
@@ -152,13 +152,29 @@
     function updateActiveTOC() {
       const scrollPos = window.scrollY + 100;
       const headings = document.querySelectorAll('.post-content h2, .post-content h3');
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
       
       let currentHeading = null;
-      headings.forEach(function(heading) {
+      let nextHeading = null;
+      
+      // Find current and next headings
+      headings.forEach(function(heading, index) {
         if (heading.offsetTop <= scrollPos) {
           currentHeading = heading;
+          // Get the next heading if it exists
+          if (index + 1 < headings.length) {
+            nextHeading = headings[index + 1];
+          }
         }
       });
+      
+      // Special handling for bottom of page
+      // If we're near the bottom and there's no next heading, stay on last heading
+      const nearBottom = (window.scrollY + windowHeight) >= (documentHeight - 100);
+      if (nearBottom && headings.length > 0 && !nextHeading) {
+        currentHeading = headings[headings.length - 1];
+      }
 
       tocItems.forEach(function(item) {
         item.classList.remove('active');
@@ -217,8 +233,8 @@
       // Calculate the difference between current and target
       const diff = targetTOCScroll - currentTOCScroll;
       
-      // If difference is very small, snap to target
-      if (Math.abs(diff) < 0.5) {
+      // If difference is very small, snap to target (reduced threshold for smoother feel)
+      if (Math.abs(diff) < 0.1) {
         currentTOCScroll = targetTOCScroll;
         tocWrapper.scrollTop = currentTOCScroll;
         if (animationFrameId) {
@@ -228,7 +244,7 @@
         return;
       }
       
-      // Ease towards target - slower, more gradual movement
+      // Ease towards target - ultra-smooth, gradual movement
       currentTOCScroll += diff * EASING_FACTOR;
       tocWrapper.scrollTop = currentTOCScroll;
       
