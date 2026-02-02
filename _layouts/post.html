@@ -24,16 +24,16 @@ layout: default
         <div class="report-metadata" data-version="{{ page.version | default: '1.0' }}" data-published="{{ page.date | date: '%Y-%m-%d' }}" data-modified="{{ page.modified | default: page.date | date: '%Y-%m-%d' }}">
           <div class="metadata-row">
             <div class="metadata-item">
-              <span class="metadata-icon">📅</span>
+              <span class="metadata-icon" aria-hidden="true">📅</span>
               <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
             </div>
             <div class="metadata-item">
-              <span class="metadata-icon">⏱️</span>
+              <span class="metadata-icon" aria-hidden="true">⏱️</span>
               <span class="reading-time"><span id="reading-time-value">5</span> min read</span>
             </div>
             {% if page.author %}
             <div class="metadata-item">
-              <span class="metadata-icon">✍️</span>
+              <span class="metadata-icon" aria-hidden="true">✍️</span>
               {% if page.author_link %}
               <span>by <a href="{{ page.author_link }}" target="_blank" rel="noopener" class="author-link">{{ page.author }}</a></span>
               {% else %}
@@ -43,7 +43,7 @@ layout: default
             {% endif %}
             {% if page.version %}
             <div class="metadata-item">
-              <span class="metadata-icon">🔖</span>
+              <span class="metadata-icon" aria-hidden="true">🔖</span>
               <span>v{{ page.version }}</span>
             </div>
             {% endif %}
@@ -56,7 +56,7 @@ layout: default
                 <span class="metadata-label">Categories:</span>
                 <span class="category-tags">
                   {% for category in page.categories %}
-                    <a href="{{ "/archive/" | relative_url }}?category={{ category | url_encode }}" class="category-tag">{{ category }}</a>
+                    <a href="{{ "/archive/" | relative_url }}?category={{ category | url_encode }}" class="category-tag" aria-label="View posts in {{ category }} category">{{ category }}</a>
                   {% endfor %}
                 </span>
               </div>
@@ -77,17 +77,17 @@ layout: default
 
         <!-- Compact Report Actions -->
         <div class="report-actions">
-          <button id="bookmark-post" class="report-action-btn" title="Bookmark this report">
-            <span class="btn-icon">📑</span> Bookmark
+          <button id="bookmark-post" class="report-action-btn" title="Bookmark this report" aria-label="Bookmark this report">
+            <span class="btn-icon" aria-hidden="true">📑</span> Bookmark
           </button>
-          <button id="generate-citation" class="report-action-btn secondary" title="Generate citation">
-            <span class="btn-icon">📚</span> Cite
+          <button id="generate-citation" class="report-action-btn secondary" title="Generate citation" aria-label="Generate citation for this report">
+            <span class="btn-icon" aria-hidden="true">📚</span> Cite
           </button>
-          <button id="print-report" class="report-action-btn" title="Print report">
-            <span class="btn-icon">🖨️</span> Print
+          <button id="print-report" class="report-action-btn" title="Print report" aria-label="Print this report">
+            <span class="btn-icon" aria-hidden="true">🖨️</span> Print
           </button>
-          <button id="export-pdf" class="report-action-btn" title="Export as PDF">
-            <span class="btn-icon">📄</span> Export PDF
+          <button id="export-pdf" class="report-action-btn" title="Export as PDF" aria-label="Export report as PDF">
+            <span class="btn-icon" aria-hidden="true">📄</span> Export PDF
           </button>
         </div>
       </div>

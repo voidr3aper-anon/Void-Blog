@@ -141,6 +141,10 @@
     const sidebar = document.querySelector('.sidebar-toc');
     if (!tocWrapper) return;
 
+    // Constants for better maintainability
+    const SCROLL_ANIMATION_DURATION = 600; // Duration in ms for smooth scroll animation
+    const SCROLL_THROTTLE_DELAY = 100; // Throttle delay for scroll events in ms
+
     let previousActiveItem = null;
     let isScrolling = false;
     let scrollTimeout;
@@ -208,7 +212,7 @@
       clearTimeout(scrollTimeout);
       scrollTimeout = setTimeout(function() {
         isScrolling = false;
-      }, 600); // Smooth scroll typically takes ~500ms
+      }, SCROLL_ANIMATION_DURATION);
     }
 
     // Throttle scroll events for better performance
@@ -218,7 +222,7 @@
         throttleTimeout = setTimeout(function() {
           updateActiveTOC();
           throttleTimeout = null;
-        }, 100);
+        }, SCROLL_THROTTLE_DELAY);
       }
     }
 
