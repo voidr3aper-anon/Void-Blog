@@ -207,7 +207,10 @@
       
       // Only animate if TOC is visible
       if (isMobile && !isSidebarOpen) {
-        animationFrameId = null;
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
         return;
       }
       
@@ -218,6 +221,9 @@
       if (Math.abs(diff) < 0.5) {
         currentTOCScroll = targetTOCScroll;
         tocWrapper.scrollTop = currentTOCScroll;
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
         animationFrameId = null;
         return;
       }
