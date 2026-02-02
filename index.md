@@ -44,7 +44,8 @@ title: Void Blog - Network Analysis, Hacking & GFW Bypass
         <span class="stat-label-kali">Tutorials</span>
       </a>
       <a href="/Void-Blog/archive/" class="hero-stat-kali">
-        <span class="stat-number-kali">{{ site.posts.size }}</span>
+        {% assign unique_reports = site.posts | where_exp: "post", "post.lang != 'fa'" %}
+        <span class="stat-number-kali">{{ unique_reports.size }}</span>
         <span class="stat-label-kali">Reports</span>
       </a>
     </div>

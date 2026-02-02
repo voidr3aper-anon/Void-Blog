@@ -137,6 +137,14 @@
     const tocItems = document.querySelectorAll('.toc-item');
     if (tocItems.length === 0) return;
 
+    const tocWrapper = document.querySelector('.toc-wrapper');
+    const sidebar = document.querySelector('.sidebar-toc');
+    if (!tocWrapper) return;
+
+    let previousActiveItem = null;
+    let isScrolling = false;
+    let scrollTimeout;
+
     function updateActiveTOC() {
       const scrollPos = window.scrollY + 100;
       const headings = document.querySelectorAll('.post-content h2, .post-content h3');
@@ -157,41 +165,64 @@
         if (activeItem) {
           activeItem.classList.add('active');
           
-          // Auto-scroll the TOC wrapper to keep the active item visible
-          const tocWrapper = document.querySelector('.toc-wrapper');
-          const sidebar = document.querySelector('.sidebar-toc');
-          const isMobile = window.innerWidth <= 768;
-          const isSidebarOpen = sidebar && sidebar.classList.contains('active');
-          
-          // Auto-scroll on PC or when sidebar is open on mobile
-          if (tocWrapper && (!isMobile || isSidebarOpen)) {
-            const wrapperRect = tocWrapper.getBoundingClientRect();
-            const itemRect = activeItem.getBoundingClientRect();
+          // Only auto-scroll if the active item changed
+          if (activeItem !== previousActiveItem) {
+            previousActiveItem = activeItem;
             
-            // Check if the active item is outside the visible area of the TOC
-            const isAboveView = itemRect.top < wrapperRect.top;
-            const isBelowView = itemRect.bottom > wrapperRect.bottom;
+            const isMobile = window.innerWidth <= 768;
+            const isSidebarOpen = sidebar && sidebar.classList.contains('active');
             
-            if (isAboveView || isBelowView) {
-              // Calculate the ideal scroll position to center the active item
-              const itemOffsetInWrapper = activeItem.offsetTop;
-              const wrapperHeight = tocWrapper.clientHeight;
-              const itemHeight = activeItem.clientHeight;
-              
-              // Center the active item in the wrapper
-              const targetScrollTop = itemOffsetInWrapper - (wrapperHeight / 2) + (itemHeight / 2);
-              
-              tocWrapper.scrollTo({
-                top: targetScrollTop,
-                behavior: 'smooth'
-              });
+            // Auto-scroll on PC or when sidebar is open on mobile
+            if (!isMobile || isSidebarOpen) {
+              scrollTOCToActiveItem(activeItem);
             }
           }
         }
       }
     }
 
-    window.addEventListener('scroll', updateActiveTOC);
+    function scrollTOCToActiveItem(activeItem) {
+      if (!activeItem || isScrolling) return;
+      
+      isScrolling = true;
+      
+      // Get the position of the active item relative to the wrapper
+      const itemOffsetInWrapper = activeItem.offsetTop;
+      const wrapperHeight = tocWrapper.clientHeight;
+      const itemHeight = activeItem.clientHeight;
+      
+      // Calculate target scroll position to center the item with some padding
+      const targetScrollTop = itemOffsetInWrapper - (wrapperHeight / 2) + (itemHeight / 2);
+      
+      // Ensure we don't scroll beyond the boundaries
+      const maxScroll = tocWrapper.scrollHeight - wrapperHeight;
+      const clampedScrollTop = Math.max(0, Math.min(targetScrollTop, maxScroll));
+      
+      // Use smooth scroll behavior
+      tocWrapper.scrollTo({
+        top: clampedScrollTop,
+        behavior: 'smooth'
+      });
+      
+      // Reset scrolling flag after animation completes
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(function() {
+        isScrolling = false;
+      }, 600); // Smooth scroll typically takes ~500ms
+    }
+
+    // Throttle scroll events for better performance
+    let throttleTimeout;
+    function throttledUpdate() {
+      if (!throttleTimeout) {
+        throttleTimeout = setTimeout(function() {
+          updateActiveTOC();
+          throttleTimeout = null;
+        }, 100);
+      }
+    }
+
+    window.addEventListener('scroll', throttledUpdate);
     updateActiveTOC(); // Initial check
   }
 
