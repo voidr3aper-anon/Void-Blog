@@ -142,12 +142,12 @@
     if (!tocWrapper) return;
 
     // Constants for better maintainability
-    const SCROLL_ANIMATION_DURATION = 600; // Duration in ms for smooth scroll animation
-    const SCROLL_THROTTLE_DELAY = 100; // Throttle delay for scroll events in ms
-
-    let previousActiveItem = null;
-    let isScrolling = false;
-    let scrollTimeout;
+    const SCROLL_THROTTLE_DELAY = 50; // Throttle delay for scroll events in ms
+    const EASING_FACTOR = 0.15; // Lower value = slower, smoother movement (0.1-0.3 recommended)
+    
+    let currentTOCScroll = tocWrapper.scrollTop;
+    let targetTOCScroll = currentTOCScroll;
+    let animationFrameId = null;
 
     function updateActiveTOC() {
       const scrollPos = window.scrollY + 100;
@@ -169,50 +169,65 @@
         if (activeItem) {
           activeItem.classList.add('active');
           
-          // Only auto-scroll if the active item changed
-          if (activeItem !== previousActiveItem) {
-            previousActiveItem = activeItem;
-            
-            const isMobile = window.innerWidth <= 768;
-            const isSidebarOpen = sidebar && sidebar.classList.contains('active');
-            
-            // Auto-scroll on PC or when sidebar is open on mobile
-            if (!isMobile || isSidebarOpen) {
-              scrollTOCToActiveItem(activeItem);
-            }
+          const isMobile = window.innerWidth <= 768;
+          const isSidebarOpen = sidebar && sidebar.classList.contains('active');
+          
+          // Auto-scroll on PC or when sidebar is open on mobile
+          if (!isMobile || isSidebarOpen) {
+            updateTOCScrollTarget(activeItem);
           }
         }
       }
     }
 
-    function scrollTOCToActiveItem(activeItem) {
-      if (!activeItem || isScrolling) return;
-      
-      isScrolling = true;
+    function updateTOCScrollTarget(activeItem) {
+      if (!activeItem) return;
       
       // Get the position of the active item relative to the wrapper
       const itemOffsetInWrapper = activeItem.offsetTop;
       const wrapperHeight = tocWrapper.clientHeight;
       const itemHeight = activeItem.clientHeight;
       
-      // Calculate target scroll position to center the item with some padding
-      const targetScrollTop = itemOffsetInWrapper - (wrapperHeight / 2) + (itemHeight / 2);
+      // Calculate target scroll position to center the item
+      let newTargetScrollTop = itemOffsetInWrapper - (wrapperHeight / 2) + (itemHeight / 2);
       
-      // Ensure we don't scroll beyond the boundaries
-      const maxScroll = tocWrapper.scrollHeight - wrapperHeight;
-      const clampedScrollTop = Math.max(0, Math.min(targetScrollTop, maxScroll));
+      // Ensure we don't scroll beyond the boundaries with proper calculation
+      const maxScroll = Math.max(0, tocWrapper.scrollHeight - wrapperHeight);
+      targetTOCScroll = Math.max(0, Math.min(newTargetScrollTop, maxScroll));
       
-      // Use smooth scroll behavior
-      tocWrapper.scrollTo({
-        top: clampedScrollTop,
-        behavior: 'smooth'
-      });
+      // Start smooth animation if not already running
+      if (!animationFrameId) {
+        smoothScrollTOC();
+      }
+    }
+
+    function smoothScrollTOC() {
+      const isMobile = window.innerWidth <= 768;
+      const isSidebarOpen = sidebar && sidebar.classList.contains('active');
       
-      // Reset scrolling flag after animation completes
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(function() {
-        isScrolling = false;
-      }, SCROLL_ANIMATION_DURATION);
+      // Only animate if TOC is visible
+      if (isMobile && !isSidebarOpen) {
+        animationFrameId = null;
+        return;
+      }
+      
+      // Calculate the difference between current and target
+      const diff = targetTOCScroll - currentTOCScroll;
+      
+      // If difference is very small, snap to target
+      if (Math.abs(diff) < 0.5) {
+        currentTOCScroll = targetTOCScroll;
+        tocWrapper.scrollTop = currentTOCScroll;
+        animationFrameId = null;
+        return;
+      }
+      
+      // Ease towards target - slower, more gradual movement
+      currentTOCScroll += diff * EASING_FACTOR;
+      tocWrapper.scrollTop = currentTOCScroll;
+      
+      // Continue animation
+      animationFrameId = requestAnimationFrame(smoothScrollTOC);
     }
 
     // Throttle scroll events for better performance

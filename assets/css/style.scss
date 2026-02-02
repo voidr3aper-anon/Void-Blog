@@ -1170,7 +1170,7 @@ button:focus,
   overflow-y: auto;
   overflow-x: hidden;
   padding: 1.5rem 0.75rem; /* Reduced padding for tighter spacing */
-  scroll-behavior: smooth; /* Enable smooth scrolling */
+  scroll-behavior: auto; /* Use auto for programmatic control of smooth scrolling */
   scroll-padding-top: 20px; /* Add padding at the top */
   scroll-padding-bottom: 20px; /* Add padding at the bottom */
 }
