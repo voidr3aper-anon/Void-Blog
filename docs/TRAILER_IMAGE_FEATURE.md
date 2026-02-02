@@ -9,7 +9,7 @@ The blog includes a **trailer hero image feature** for report pages that display
 ### Visual Effect
 - **Background Image**: Displayed as a full-width background behind the post title
 - **Blur Effect**: 3px blur applied for a cinematic feel
-- **Darkness**: 30% brightness to ensure text readability
+- **Darkness**: 70% darkness (30% brightness) to ensure text readability
 - **Gradient Overlay**: Dark gradient overlay for enhanced contrast
 - **Text Styling**: Title and excerpt float above with shadow effects
 
@@ -131,7 +131,7 @@ Ensure browser supports the `filter` CSS property (all modern browsers do).
 ## Example
 
 See the Iran GFW report for a live example:
-- Post: `_posts/network-monitoring/Iran-GFw-reports/2026-01-26-report-of-state/`
+- Post: `_posts/network-monitoring/Iran-GFW-reports/2026-01-26-report-of-state/`
 - Image: `trailer.png` (network infrastructure diagram)
 - Result: Cinematic hero background with blurred, darkened effect
 
