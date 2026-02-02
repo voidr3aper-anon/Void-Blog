@@ -1347,12 +1347,37 @@ button:focus,
 
 @media (max-width: $mobile-breakpoint) {
   .post-header-section {
-    padding: 2rem 1.5rem;
     margin-left: 0; /* Reset margin for mobile */
+    min-height: 250px;
+  }
+  
+  .post-header {
+    padding: 2rem 1.5rem 1.5rem 1.5rem;
   }
   
   .post-title {
-    font-size: 2rem;
+    font-size: 1.75rem;
+  }
+  
+  .post-excerpt {
+    font-size: 1rem;
+  }
+  
+  .report-metadata-wrapper {
+    padding: 1rem;
+  }
+  
+  .metadata-row {
+    gap: 1rem;
+  }
+  
+  .report-actions {
+    gap: 0.5rem;
+  }
+  
+  .report-action-btn {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
   }
   
   .post-layout {
