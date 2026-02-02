@@ -3,50 +3,93 @@ layout: default
 ---
 
 <article class="post">
-  <!-- Compact header section -->
+  <!-- Header section with hero background image -->
   <div class="post-header-section">
+    {% if page.image %}
+    <!-- Background image with overlay -->
+    <div class="post-header-hero" style="background-image: url('{{ page.image | relative_url }}');">
+      <div class="post-header-overlay"></div>
+    </div>
+    {% endif %}
+    
     <header class="post-header">
       <h1 class="post-title">{{ page.title }}</h1>
       
-      <!-- Compact Report Metadata - Below Title -->
-      <div class="report-metadata" data-version="{{ page.version | default: '1.0' }}" data-published="{{ page.date | date: '%Y-%m-%d' }}" data-modified="{{ page.modified | default: page.date | date: '%Y-%m-%d' }}">
-        <div class="metadata-item">
-          <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
-        </div>
-        <div class="metadata-item">
-          <span class="reading-time"><span id="reading-time-value">5</span> min read</span>
-        </div>
-        {% if page.author %}
-        <div class="metadata-item">
-          {% if page.author_link %}
-          <span>by <a href="{{ page.author_link }}" target="_blank" rel="noopener" class="author-link">{{ page.author }}</a></span>
-          {% else %}
-          <span>by {{ page.author }}</span>
+      {% if page.excerpt %}
+      <p class="post-excerpt">{{ page.excerpt }}</p>
+      {% endif %}
+      
+      <!-- Organized Report Metadata -->
+      <div class="report-metadata-wrapper">
+        <div class="report-metadata" data-version="{{ page.version | default: '1.0' }}" data-published="{{ page.date | date: '%Y-%m-%d' }}" data-modified="{{ page.modified | default: page.date | date: '%Y-%m-%d' }}">
+          <div class="metadata-row">
+            <div class="metadata-item">
+              <span class="metadata-icon" aria-hidden="true">📅</span>
+              <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %-d, %Y" }}</time>
+            </div>
+            <div class="metadata-item">
+              <span class="metadata-icon" aria-hidden="true">⏱️</span>
+              <span class="reading-time"><span id="reading-time-value">5</span> min read</span>
+            </div>
+            {% if page.author %}
+            <div class="metadata-item">
+              <span class="metadata-icon" aria-hidden="true">✍️</span>
+              {% if page.author_link %}
+              <span>by <a href="{{ page.author_link }}" target="_blank" rel="noopener" class="author-link">{{ page.author }}</a></span>
+              {% else %}
+              <span>by {{ page.author }}</span>
+              {% endif %}
+            </div>
+            {% endif %}
+            {% if page.version %}
+            <div class="metadata-item">
+              <span class="metadata-icon" aria-hidden="true">🔖</span>
+              <span>v{{ page.version }}</span>
+            </div>
+            {% endif %}
+          </div>
+          
+          {% if page.categories.size > 0 or page.tags.size > 0 %}
+          <div class="metadata-row metadata-tags-row">
+            {% if page.categories.size > 0 %}
+              <div class="metadata-item metadata-categories">
+                <span class="metadata-label">Categories:</span>
+                <span class="category-tags">
+                  {% for category in page.categories %}
+                    <a href="{{ "/archive/" | relative_url }}?category={{ category | url_encode }}" class="category-tag" aria-label="View posts in {{ category }} category">{{ category }}</a>
+                  {% endfor %}
+                </span>
+              </div>
+            {% endif %}
+            {% if page.tags.size > 0 %}
+              <div class="metadata-item metadata-post-tags">
+                <span class="metadata-label">Tags:</span>
+                <span class="post-tags">
+                  {% for tag in page.tags limit:5 %}
+                    <span class="post-tag">{{ tag }}</span>
+                  {% endfor %}
+                </span>
+              </div>
+            {% endif %}
+          </div>
           {% endif %}
         </div>
-        {% endif %}
-        {% if page.version %}
-        <div class="metadata-item">
-          <span>v{{ page.version }}</span>
-        </div>
-        {% endif %}
-        {% if page.categories.size > 0 %}
-          <div class="metadata-item">
-            <span class="category-tags">
-              {% for category in page.categories %}
-                <a href="{{ "/archive/" | relative_url }}?category={{ category | url_encode }}" class="category-tag">{{ category }}</a>
-              {% endfor %}
-            </span>
-          </div>
-        {% endif %}
-      </div>
 
-      <!-- Compact Report Actions -->
-      <div class="report-actions">
-        <button id="bookmark-post" class="report-action-btn">Bookmark</button>
-        <button id="generate-citation" class="report-action-btn secondary">Cite</button>
-        <button id="print-report" class="report-action-btn">Print</button>
-        <button id="export-pdf" class="report-action-btn">Export PDF</button>
+        <!-- Compact Report Actions -->
+        <div class="report-actions">
+          <button id="bookmark-post" class="report-action-btn" title="Bookmark this report" aria-label="Bookmark this report">
+            <span class="btn-icon" aria-hidden="true">📑</span> Bookmark
+          </button>
+          <button id="generate-citation" class="report-action-btn secondary" title="Generate citation" aria-label="Generate citation for this report">
+            <span class="btn-icon" aria-hidden="true">📚</span> Cite
+          </button>
+          <button id="print-report" class="report-action-btn" title="Print report" aria-label="Print this report">
+            <span class="btn-icon" aria-hidden="true">🖨️</span> Print
+          </button>
+          <button id="export-pdf" class="report-action-btn" title="Export as PDF" aria-label="Export report as PDF">
+            <span class="btn-icon" aria-hidden="true">📄</span> Export PDF
+          </button>
+        </div>
       </div>
     </header>
   </div>

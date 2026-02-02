@@ -137,16 +137,40 @@
     const tocItems = document.querySelectorAll('.toc-item');
     if (tocItems.length === 0) return;
 
+    const tocWrapper = document.querySelector('.toc-wrapper');
+    const sidebar = document.querySelector('.sidebar-toc');
+    if (!tocWrapper) return;
+
+    // Constants for better maintainability
+    const SCROLL_THROTTLE_DELAY = 16; // ~60fps for ultra-responsive tracking (16.67ms = 60fps exactly)
+    const EASING_FACTOR = 0.08; // Ultra-smooth movement (lower = smoother, less jumpy)
+    const BOTTOM_THRESHOLD = 100; // Pixels from bottom to activate bottom detection
+    
+    let currentTOCScroll = tocWrapper.scrollTop;
+    let targetTOCScroll = currentTOCScroll;
+    let animationFrameId = null;
+
     function updateActiveTOC() {
       const scrollPos = window.scrollY + 100;
       const headings = document.querySelectorAll('.post-content h2, .post-content h3');
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
       
       let currentHeading = null;
+      
+      // Find current heading based on scroll position
       headings.forEach(function(heading) {
         if (heading.offsetTop <= scrollPos) {
           currentHeading = heading;
         }
       });
+      
+      // Special handling for bottom of page
+      // When near bottom, ensure we stay on the last heading for proper TOC tracking
+      const nearBottom = (window.scrollY + windowHeight) >= (documentHeight - BOTTOM_THRESHOLD);
+      if (nearBottom && headings.length > 0) {
+        currentHeading = headings[headings.length - 1];
+      }
 
       tocItems.forEach(function(item) {
         item.classList.remove('active');
@@ -157,41 +181,85 @@
         if (activeItem) {
           activeItem.classList.add('active');
           
-          // Auto-scroll the TOC wrapper to keep the active item visible
-          const tocWrapper = document.querySelector('.toc-wrapper');
-          const sidebar = document.querySelector('.sidebar-toc');
           const isMobile = window.innerWidth <= 768;
           const isSidebarOpen = sidebar && sidebar.classList.contains('active');
           
           // Auto-scroll on PC or when sidebar is open on mobile
-          if (tocWrapper && (!isMobile || isSidebarOpen)) {
-            const wrapperRect = tocWrapper.getBoundingClientRect();
-            const itemRect = activeItem.getBoundingClientRect();
-            
-            // Check if the active item is outside the visible area of the TOC
-            const isAboveView = itemRect.top < wrapperRect.top;
-            const isBelowView = itemRect.bottom > wrapperRect.bottom;
-            
-            if (isAboveView || isBelowView) {
-              // Calculate the ideal scroll position to center the active item
-              const itemOffsetInWrapper = activeItem.offsetTop;
-              const wrapperHeight = tocWrapper.clientHeight;
-              const itemHeight = activeItem.clientHeight;
-              
-              // Center the active item in the wrapper
-              const targetScrollTop = itemOffsetInWrapper - (wrapperHeight / 2) + (itemHeight / 2);
-              
-              tocWrapper.scrollTo({
-                top: targetScrollTop,
-                behavior: 'smooth'
-              });
-            }
+          if (!isMobile || isSidebarOpen) {
+            updateTOCScrollTarget(activeItem);
           }
         }
       }
     }
 
-    window.addEventListener('scroll', updateActiveTOC);
+    function updateTOCScrollTarget(activeItem) {
+      if (!activeItem) return;
+      
+      // Get the position of the active item relative to the wrapper
+      const itemOffsetInWrapper = activeItem.offsetTop;
+      const wrapperHeight = tocWrapper.clientHeight;
+      const itemHeight = activeItem.clientHeight;
+      
+      // Calculate target scroll position to center the item
+      let newTargetScrollTop = itemOffsetInWrapper - (wrapperHeight / 2) + (itemHeight / 2);
+      
+      // Ensure we don't scroll beyond the boundaries with proper calculation
+      const maxScroll = Math.max(0, tocWrapper.scrollHeight - wrapperHeight);
+      targetTOCScroll = Math.max(0, Math.min(newTargetScrollTop, maxScroll));
+      
+      // Start smooth animation if not already running
+      if (!animationFrameId) {
+        smoothScrollTOC();
+      }
+    }
+
+    function smoothScrollTOC() {
+      const isMobile = window.innerWidth <= 768;
+      const isSidebarOpen = sidebar && sidebar.classList.contains('active');
+      
+      // Only animate if TOC is visible
+      if (isMobile && !isSidebarOpen) {
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+          animationFrameId = null;
+        }
+        return;
+      }
+      
+      // Calculate the difference between current and target
+      const diff = targetTOCScroll - currentTOCScroll;
+      
+      // If difference is very small, snap to target (reduced threshold for smoother feel)
+      if (Math.abs(diff) < 0.1) {
+        currentTOCScroll = targetTOCScroll;
+        tocWrapper.scrollTop = currentTOCScroll;
+        if (animationFrameId) {
+          cancelAnimationFrame(animationFrameId);
+        }
+        animationFrameId = null;
+        return;
+      }
+      
+      // Ease towards target - ultra-smooth, gradual movement
+      currentTOCScroll += diff * EASING_FACTOR;
+      tocWrapper.scrollTop = currentTOCScroll;
+      
+      // Continue animation
+      animationFrameId = requestAnimationFrame(smoothScrollTOC);
+    }
+
+    // Throttle scroll events for better performance
+    let throttleTimeout;
+    function throttledUpdate() {
+      if (!throttleTimeout) {
+        throttleTimeout = setTimeout(function() {
+          updateActiveTOC();
+          throttleTimeout = null;
+        }, SCROLL_THROTTLE_DELAY);
+      }
+    }
+
+    window.addEventListener('scroll', throttledUpdate);
     updateActiveTOC(); // Initial check
   }
 
