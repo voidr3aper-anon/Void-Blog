@@ -142,8 +142,9 @@
     if (!tocWrapper) return;
 
     // Constants for better maintainability
-    const SCROLL_THROTTLE_DELAY = 16; // ~60fps for ultra-responsive tracking
+    const SCROLL_THROTTLE_DELAY = 16; // ~60fps for ultra-responsive tracking (16.67ms = 60fps exactly)
     const EASING_FACTOR = 0.08; // Ultra-smooth movement (lower = smoother, less jumpy)
+    const BOTTOM_THRESHOLD = 100; // Pixels from bottom to activate bottom detection
     
     let currentTOCScroll = tocWrapper.scrollTop;
     let targetTOCScroll = currentTOCScroll;
@@ -156,23 +157,18 @@
       const documentHeight = document.documentElement.scrollHeight;
       
       let currentHeading = null;
-      let nextHeading = null;
       
-      // Find current and next headings
-      headings.forEach(function(heading, index) {
+      // Find current heading based on scroll position
+      headings.forEach(function(heading) {
         if (heading.offsetTop <= scrollPos) {
           currentHeading = heading;
-          // Get the next heading if it exists
-          if (index + 1 < headings.length) {
-            nextHeading = headings[index + 1];
-          }
         }
       });
       
       // Special handling for bottom of page
-      // If we're near the bottom and there's no next heading, stay on last heading
-      const nearBottom = (window.scrollY + windowHeight) >= (documentHeight - 100);
-      if (nearBottom && headings.length > 0 && !nextHeading) {
+      // When near bottom, ensure we stay on the last heading for proper TOC tracking
+      const nearBottom = (window.scrollY + windowHeight) >= (documentHeight - BOTTOM_THRESHOLD);
+      if (nearBottom && headings.length > 0) {
         currentHeading = headings[headings.length - 1];
       }
 
