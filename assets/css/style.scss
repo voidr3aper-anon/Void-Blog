@@ -1095,7 +1095,7 @@ button:focus,
   background-position: center;
   background-repeat: no-repeat;
   z-index: 0;
-  filter: blur(3px) brightness(0.3); /* Darker for better contrast (WCAG compliance) */
+  filter: blur(3px) brightness(0.7); /* Darkened for contrast while keeping image visible */
   transform: scale(1.1); /* Prevents blur edges */
 }
 
@@ -1107,9 +1107,9 @@ button:focus,
   bottom: 0;
   background: linear-gradient(
     180deg,
-    rgba(11, 15, 20, 0.90) 0%,
-    rgba(11, 15, 20, 0.95) 50%,
-    rgba(11, 15, 20, 0.98) 100%
+    rgba(11, 15, 20, 0.70) 0%,
+    rgba(11, 15, 20, 0.80) 50%,
+    rgba(11, 15, 20, 0.90) 100%
   );
   z-index: 1;
 }
