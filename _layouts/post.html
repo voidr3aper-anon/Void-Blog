@@ -84,7 +84,7 @@ layout: default
         <div class="share-buttons">
           <button class="share-btn" data-platform="twitter">Twitter</button>
           <button class="share-btn" data-platform="reddit">Reddit</button>
-          <button class="share-btn" data-platform="facebook">Facebook</button>
+          <button class="share-btn" data-platform="telegram">Telegram</button>
           <button class="share-btn" data-platform="linkedin">LinkedIn</button>
         </div>
       </div>
@@ -118,8 +118,8 @@ layout: default
     </div>
   </div>
 
-  <footer class="post-footer">
+  <footer class="post-footer" data-lang="{{ page.lang | default: 'en' }}">
     <hr>
-    <p><a href="{{ "/" | relative_url }}">← Back to Home</a></p>
+    <p class="back-to-home-link"><a href="{{ "/" | relative_url }}">← Back to Home</a></p>
   </footer>
 </article>

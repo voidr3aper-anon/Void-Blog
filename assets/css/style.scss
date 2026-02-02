@@ -778,7 +778,7 @@ body {
   background: linear-gradient(135deg, $kali-darker 0%, $kali-dark 100%);
   color: $kali-text-muted;
   padding: 2rem 0;
-  margin-top: 3rem;
+  margin-top: 0;
   border-top: 3px solid $kali-red;
   text-align: center;
   position: relative;
@@ -844,6 +844,11 @@ body {
   
   .main-content h2 {
     font-size: 1.5rem;
+  }
+  
+  /* Footer horizontal padding on mobile for better text flow */
+  .site-footer {
+    padding: 2rem 1.5rem;
   }
 }
 
@@ -961,12 +966,12 @@ button:focus,
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
-  color: $accent-bg;
+  background: linear-gradient(135deg, $kali-red 0%, $kali-accent 100%);
+  color: $kali-text;
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  border: none;
+  border: 2px solid rgba(220, 38, 38, 0.3);
   cursor: pointer;
   font-size: 1.5rem;
   display: flex;
@@ -976,7 +981,7 @@ button:focus,
   visibility: hidden;
   transform: translateY(20px);
   transition: all 0.4s ease;
-  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+  box-shadow: 0 4px 16px rgba(220, 38, 38, 0.4);
   z-index: 999;
 }
 
@@ -988,7 +993,8 @@ button:focus,
 
 #back-to-top:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.6);
+  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.6);
+  background: linear-gradient(135deg, $kali-accent 0%, $kali-red 100%);
 }
 
 /* ===== Copy Code Button ===== */
@@ -1166,6 +1172,43 @@ button:focus,
 .post-content {
   max-width: 900px; /* Optimal reading width */
   margin: 0 auto;
+}
+
+/* ===== Post Footer ===== */
+.post-footer {
+  max-width: 900px;
+  margin: 3rem auto 0 auto;
+  padding: 1.5rem 0 2rem 0;
+  border-top: 2px solid rgba(220, 38, 38, 0.3);
+  text-align: center;
+}
+
+.post-footer hr {
+  display: none;
+}
+
+.post-footer p {
+  margin: 0;
+}
+
+.post-footer a {
+  color: $kali-red;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem;
+  display: inline-block;
+  border: 2px solid rgba(220, 38, 38, 0.3);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%);
+}
+
+.post-footer a:hover {
+  color: $kali-text;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.3) 0%, rgba(239, 68, 68, 0.3) 100%);
+  border-color: $kali-red;
+  transform: translateX(-5px);
+  box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
 }
 
 /* ===== Table of Contents - Kali themed ===== */
@@ -1382,18 +1425,25 @@ button:focus,
 
 /* ===== Social Sharing ===== */
 .social-sharing {
-  margin: 2rem 0;
-  padding: 1.5rem;
-  background: linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(75, 85, 99, 0.4) 100%);
-  border-radius: 8px;
-  border: 1px solid rgba(59, 130, 246, 0.2);
+  margin: 3rem 0;
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.6) 0%, rgba(31, 41, 55, 0.6) 100%);
+  border-radius: 12px;
+  border: 2px solid rgba(220, 38, 38, 0.3);
   text-align: center;
 }
 
 .social-sharing h3 {
   margin-top: 0;
-  color: $primary-color;
-  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
+  color: $kali-red;
+  font-size: 1.3rem;
+  border-bottom: 2px solid rgba(220, 38, 38, 0.3);
+  padding-bottom: 0.75rem;
+  display: inline-block;
+  width: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .share-buttons {
@@ -1401,26 +1451,29 @@ button:focus,
   justify-content: center;
   gap: 1rem;
   flex-wrap: wrap;
-  margin-top: 1rem;
+  margin-top: 1.5rem;
 }
 
 .share-btn {
-  padding: 0.75rem 1.5rem;
-  background: rgba(59, 130, 246, 0.2);
-  border: 2px solid rgba(59, 130, 246, 0.3);
+  padding: 0.85rem 1.75rem;
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.2) 0%, rgba(239, 68, 68, 0.2) 100%);
+  border: 2px solid rgba(220, 38, 38, 0.4);
   border-radius: 8px;
-  color: $primary-color;
+  color: $kali-text;
   text-decoration: none;
   font-weight: 600;
+  font-size: 0.95rem;
   transition: all 0.3s ease;
   cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
 .share-btn:hover {
-  background: rgba(59, 130, 246, 0.3);
-  border-color: $primary-color;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  background: linear-gradient(135deg, rgba(220, 38, 38, 0.4) 0%, rgba(239, 68, 68, 0.4) 100%);
+  border-color: $kali-red;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.4);
+  color: $kali-red;
 }
 
 /* ===== Category Tags ===== */
@@ -1452,48 +1505,71 @@ button:focus,
 /* ===== Related Posts ===== */
 .related-posts {
   margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 2px solid rgba(59, 130, 246, 0.3);
+  padding: 2rem;
+  background: linear-gradient(135deg, rgba(31, 41, 55, 0.4) 0%, rgba(75, 85, 99, 0.4) 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(220, 38, 38, 0.3);
 }
 
 .related-posts h2 {
-  color: $primary-color;
+  color: $kali-red;
+  margin-top: 0;
   margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  border-bottom: 2px solid rgba(220, 38, 38, 0.3);
+  padding-bottom: 0.75rem;
 }
 
 .related-posts-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
   margin-top: 1.5rem;
 }
 
 .related-post-card {
-  background: linear-gradient(135deg, rgba(31, 41, 55, 0.6) 0%, rgba(75, 85, 99, 0.6) 100%);
-  border: 1px solid rgba(59, 130, 246, 0.2);
-  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.8) 0%, rgba(31, 41, 55, 0.8) 100%);
+  border: 2px solid rgba(220, 38, 38, 0.2);
+  border-radius: 12px;
   padding: 1.5rem;
   transition: all 0.3s ease;
 }
 
 .related-post-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
-  border-color: rgba(59, 130, 246, 0.4);
+  border-color: $kali-red;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(220, 38, 38, 0.3);
+  background: linear-gradient(135deg, rgba(17, 24, 39, 0.9) 0%, rgba(31, 41, 55, 0.9) 100%);
 }
 
 .related-post-card h3 {
   margin-top: 0;
+  margin-bottom: 0.75rem;
   font-size: 1.2rem;
+  border: none;
+  padding: 0;
 }
 
-.related-post-card a {
-  color: $primary-color;
+.related-post-card h3 a {
+  color: $kali-text;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-.related-post-card a:hover {
-  color: lighten($primary-color, 10%);
+.related-post-card h3 a:hover {
+  color: $kali-red;
+}
+
+.related-post-card .post-meta {
+  color: $kali-text-muted;
+  font-size: 0.9rem;
+  margin-bottom: 0.75rem;
+}
+
+.related-post-card p {
+  color: $kali-text-secondary;
+  margin-bottom: 0;
+  line-height: 1.6;
 }
 
 /* ===== Scroll Animations ===== */
@@ -4572,7 +4648,7 @@ h3:hover .section-anchor {
 
 /* Footer RTL */
 [dir="rtl"] .site-footer {
-  text-align: right;
+  text-align: center; /* Keep center alignment even in RTL for consistency */
 }
 
 [dir="rtl"] .footer-links-grid {
@@ -4671,7 +4747,21 @@ h3:hover .section-anchor {
   margin-right: 340px; /* 300px sidebar + 40px spacing for better readability */
 }
 
-/* Site footer stays full-width - it's a site-wide element, not part of post content */
+/* Site footer on post pages with TOC sidebar - LTR (default) */
+.post ~ .site-footer {
+  margin-left: 0;
+  margin-right: 0; /* Full width - let background extend to TOC */
+  padding-left: calc(340px + 2rem); /* Sidebar width + content padding */
+  padding-right: 2rem;
+}
+
+/* Site footer on post pages with TOC sidebar - RTL */
+[dir="rtl"] .post ~ .site-footer {
+  margin-left: 0;
+  margin-right: 0; /* Full width - let background extend to TOC */
+  padding-left: 2rem;
+  padding-right: calc(340px + 2rem); /* Sidebar width + content padding */
+}
 
 [dir="rtl"] #table-of-contents {
   border-left: none;
@@ -4754,6 +4844,22 @@ h3:hover .section-anchor {
     margin-right: 280px; /* 240px sidebar + 40px spacing */
   }
   
+  /* Site footer on post pages with TOC sidebar - tablet - LTR */
+  .post ~ .site-footer {
+    margin-left: 0;
+    margin-right: 0; /* Full width - let background extend to TOC */
+    padding-left: calc(280px + 2rem); /* Smaller sidebar width + content padding */
+    padding-right: 2rem;
+  }
+  
+  /* Site footer on post pages with TOC sidebar - tablet - RTL */
+  [dir="rtl"] .post ~ .site-footer {
+    margin-left: 0;
+    margin-right: 0; /* Full width - let background extend to TOC */
+    padding-left: 2rem;
+    padding-right: calc(280px + 2rem); /* Smaller sidebar width + content padding */
+  }
+  
   /* Site footer stays full-width on tablet too */
 }
 
@@ -4779,6 +4885,29 @@ h3:hover .section-anchor {
     margin-left: 0;
     margin-right: 0;
   }
+  
+  /* Site footer on mobile - full width, no sidebar - LTR */
+  .post ~ .site-footer {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 2rem 1.5rem;  /* Override desktop padding - TOC hidden on mobile */
+  }
+  
+  /* Site footer on mobile - full width, no sidebar - RTL */
+  [dir="rtl"] .post ~ .site-footer {
+    margin-left: 0;
+    margin-right: 0;
+    padding: 2rem 1.5rem;  /* Override desktop padding - TOC hidden on mobile */
+  }
+  
+  /* Footer text spacing on mobile for RTL */
+  [dir="rtl"] .site-footer {
+    /* text-align: center inherited from general RTL rule (line 4651) */
+    word-wrap: break-word;      /* Legacy fallback */
+    overflow-wrap: break-word;  /* Modern standard for proper wrapping */
+  }
+  
+  /* Remove inline-block behavior that causes word-by-word stacking */
   
   /* Site footer stays full-width on mobile - no margin needed */
   

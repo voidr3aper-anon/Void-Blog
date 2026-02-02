@@ -273,8 +273,8 @@
           case 'twitter':
             shareUrl = 'https://twitter.com/intent/tweet?url=' + url + '&text=' + title;
             break;
-          case 'facebook':
-            shareUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + url;
+          case 'telegram':
+            shareUrl = 'https://t.me/share/url?url=' + url + '&text=' + title;
             break;
           case 'linkedin':
             shareUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + url;
@@ -665,6 +665,29 @@
     }
   }
 
+  // Hide "Back to Home" link for Persian language pages
+  function hideBackToHomeForPersian() {
+    const postFooter = document.querySelector('.post-footer');
+    if (postFooter) {
+      // Try to get language from multiple sources with clear precedence
+      let lang = postFooter.getAttribute('data-lang');
+      if (!lang) {
+        lang = document.documentElement.lang;
+      }
+      if (!lang && document.documentElement.getAttribute('dir') === 'rtl') {
+        lang = 'fa';
+      }
+      if (!lang) {
+        lang = 'en';
+      }
+      
+      const backToHomeLink = postFooter.querySelector('.back-to-home-link');
+      if (backToHomeLink && lang === 'fa') {
+        backToHomeLink.style.display = 'none';
+      }
+    }
+  }
+
   // Initialize all features
   function init() {
     initBackToTop();
@@ -680,6 +703,7 @@
     initPDFExport();
     initViewCounter();
     initServiceWorker();
+    hideBackToHomeForPersian();
   }
 
   // Run when DOM is ready
