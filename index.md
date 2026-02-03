@@ -111,7 +111,27 @@ title: Void Blog - Network Analysis, Hacking & GFW Bypass
       <article class="doc-card-kali" data-post-lang="{{ post.lang | default: 'en' }}">
         {% if post.image %}
         <div class="doc-card-image">
-          <img src="{{ post.image | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
+          {% assign image_base = post.image | remove: '.png' | remove: '.jpg' | remove: '.jpeg' %}
+          <picture>
+            <!-- WebP format with responsive sizes -->
+            <source 
+              type="image/webp"
+              srcset="{{ image_base | append: '-400w.webp' | relative_url }} 400w,
+                      {{ image_base | append: '-800w.webp' | relative_url }} 800w,
+                      {{ image_base | append: '-1200w.webp' | relative_url }} 1200w"
+              sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px">
+            
+            <!-- JPEG fallback with responsive sizes -->
+            <source 
+              type="image/jpeg"
+              srcset="{{ image_base | append: '-400w.jpg' | relative_url }} 400w,
+                      {{ image_base | append: '-800w.jpg' | relative_url }} 800w,
+                      {{ image_base | append: '-1200w.jpg' | relative_url }} 1200w"
+              sizes="(max-width: 640px) 400px, (max-width: 1024px) 800px, 1200px">
+            
+            <!-- Final fallback to original image -->
+            <img src="{{ image_base | append: '-800w.jpg' | relative_url }}" alt="{{ post.title | escape }}" loading="lazy">
+          </picture>
           <div class="doc-card-overlay"></div>
         </div>
         {% else %}
