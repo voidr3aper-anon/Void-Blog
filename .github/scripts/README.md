@@ -11,19 +11,21 @@ This workflow automatically organizes and copies images from post directories to
 
 ## Why This Approach?
 
-Jekyll processes all files in `_posts/` by default, including binary image files, which causes build errors ("invalid byte sequence in UTF-8"). By excluding the `images/` directories in `_config.yml` and copying them to `assets/`, we:
+Jekyll processes all files in `_posts/` by default, including binary image files, which causes build errors ("invalid byte sequence in UTF-8"). By excluding the `images/` directories in `_config.yml` and copying them to `assets/` during build, we:
 
 - Keep images organized with their posts in the repository
 - Avoid Jekyll processing errors on binary files
 - Serve images from the standard assets directory
 - Maintain a clean separation between source content and build artifacts
+- Reduce repository size by not committing copied images (they only exist in build artifacts)
 
 ## Benefits
 
 ✅ **Easier Organization**: Keep images with your posts for simpler management
-✅ **Automatic Copying**: No manual file moving required
+✅ **Automatic Copying**: No manual file moving required during build
 ✅ **Works with GitHub Pages**: Images in assets directory work with Jekyll
 ✅ **Flexible**: Can still add images directly to assets if preferred
+✅ **Smaller Repository**: Copied images are not committed, only exist in build artifacts
 
 ## Script Details
 

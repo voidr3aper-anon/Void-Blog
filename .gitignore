@@ -47,10 +47,12 @@ vendor/
 Gemfile.lock
 .backup
 
-# Copied post images (now committed for cross-branch visibility) #
+# Copied post images (build artifacts only) #
 ###############################################
-# Images are automatically copied by GitHub Actions workflow
-# and committed to make them available on all branches
+# Images are automatically copied by GitHub Actions workflow during build
+# They are NOT committed - only exist in the build artifact and deployed site
+assets/posts/**
+!assets/posts/.gitkeep
 
 # Development files #
 #####################
